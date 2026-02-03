@@ -117,15 +117,11 @@ export interface MotionComponentProps {
   animate?: AnimationProps;
   exit?: AnimationProps;
   transition?: TransitionProps;
-  shouldAnimate?: boolean;
-  shouldDeAnimate?: boolean;
-  shouldExit?: boolean;
-  onExitComplete?: () => void;
-  whileHover?: AnimationProps;
-  whileTap?: AnimationProps;
-  whileFocus?: AnimationProps;
-  layout?: boolean;
-  layoutId?: string;
+  whileHover?: AnimationProps; // Future implementation
+  whileTap?: AnimationProps; // Future implementation
+  whileFocus?: AnimationProps;// Future implementation
+  layout?: boolean; // Future implementation
+  layoutId?: string; // Future implementation
   styles?: ViewStyle;
   children?: React.ReactNode;
 }
@@ -144,14 +140,13 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     const {
       initial = {},
       animate = {},
-      exit = {},
+      exit = {}, // Future implementation
       transition = DEFAULT_TRANSITION,
-      onExitComplete,
-      whileHover,
-      whileTap,
-      whileFocus,
-      layout,
-      layoutId,
+      whileHover, // Future implementation
+      whileTap, // Future implementation
+      whileFocus, // Future implementation
+      layout, // Future implementation
+      layoutId, // Future implementation
       styles = {},
       children,
       ...rest
