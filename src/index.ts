@@ -25,9 +25,6 @@ import Animated, {
 export interface AnimationProps {
   // Transform properties
   opacity?: number;
-  x?: number;
-  y?: number;
-  z?: number;
   translateX?: number;
   translateY?: number;
   scale?: number;
@@ -43,10 +40,6 @@ export interface AnimationProps {
   // Layout properties
   width?: number;
   height?: number;
-  minWidth?: number;
-  minHeight?: number;
-  maxWidth?: number;
-  maxHeight?: number;
 
   // Spacing properties
   margin?: number;
@@ -76,10 +69,6 @@ export interface AnimationProps {
   borderLeftWidth?: number;
   borderRightWidth?: number;
   borderColor?: string;
-  borderTopColor?: string;
-  borderBottomColor?: string;
-  borderLeftColor?: string;
-  borderRightColor?: string;
 
   // Color properties
   backgroundColor?: string;
@@ -117,12 +106,12 @@ export interface MotionComponentProps {
   animate?: AnimationProps;
   exit?: AnimationProps;
   transition?: TransitionProps;
-  whileHover?: AnimationProps; // Future implementation
-  whileTap?: AnimationProps; // Future implementation
-  whileFocus?: AnimationProps;// Future implementation
-  layout?: boolean; // Future implementation
-  layoutId?: string; // Future implementation
-  styles?: ViewStyle;
+  whileHover?: AnimationProps; // Future Implementation
+  whileTap?: AnimationProps; // Future Implementation
+  whileFocus?: AnimationProps; // Future Implementation
+  layout?: boolean; // Future Implementation
+  layoutId?: string; // Future Implementation
+  styles?: ViewStyle; // Future Implementation
   children?: React.ReactNode;
 }
 
@@ -140,13 +129,13 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     const {
       initial = {},
       animate = {},
-      exit = {}, // Future implementation
+      exit = {}, // Future Implementation
       transition = DEFAULT_TRANSITION,
-      whileHover, // Future implementation
-      whileTap, // Future implementation
-      whileFocus, // Future implementation
-      layout, // Future implementation
-      layoutId, // Future implementation
+      whileHover, // Future Implementation
+      whileTap, // Future Implementation
+      whileFocus, // Future Implementation
+      layout, // Future Implementation
+      layoutId, // Future Implementation
       styles = {},
       children,
       ...rest
@@ -201,7 +190,11 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       backgroundColor: useSharedValue(0), // use Interpolation 'transparent',
       color: useSharedValue(0), // use Interpolation 'transparent',
       borderColor: useSharedValue(0), // use Interpolation 'transparent',
-      shadowColor: useSharedValue(0), // use Interpolation 'transparent',
+      // Color targets as shared values
+      backgroundColorTo: useSharedValue(getInitialValue('backgroundColor', animate) as string),
+      colorTo: useSharedValue(getInitialValue('color', animate) as string),
+      borderColorTo: useSharedValue(getInitialValue('borderColor', animate) as string),
+      shadowColorTo: useSharedValue(getInitialValue('shadowColor', animate) as string),
 
       // Transform values
       rotate: useSharedValue('0deg'), // use interpolation '0deg',
@@ -211,24 +204,12 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       skewX: useSharedValue('0deg'), // use interpolation ''0deg'deg',
       skewY: useSharedValue('0deg'), // use interpolation '0deg',
     }).current;
-    const colorValues = useRef({
-      backgroundColor: {
-        from: getInitialValue('backgroundColor', initial) as string,
-        to: getInitialValue('backgroundColor', animate) as string,
-      },
-      color: {
-        from: getInitialValue('color', initial) as string,
-        to: getInitialValue('color', animate) as string,
-      },
-      borderColor: {
-        from: getInitialValue('borderColor', initial) as string,
-        to: getInitialValue('borderColor', animate) as string,
-      },
-      shadowColor: {
-        from: getInitialValue('shadowColor', initial) as string,
-        to: getInitialValue('shadowColor', animate) as string,
-      },
-    });
+    let colorFrom = {
+      backgroundColor: getInitialValue('backgroundColor', initial) as string,
+      color: getInitialValue('color', initial) as string,
+      borderColor: getInitialValue('borderColor', initial) as string,
+      shadowColor: getInitialValue('shadowColor', initial) as string,
+    };
 
     // Animation helper
     const animateToValues = (targetValues: AnimationProps, transitionConfig = transition) => {
@@ -237,7 +218,14 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
           // Handle color properties
           if (['backgroundColor', 'color', 'borderColor', 'shadowColor'].includes(key)) {
             const progress = sharedValues[key];
-            colorValues.current[key as keyof typeof colorValues.current].to = value as string;
+            // Capture current interpolated color as new 'from' value
+            const currentColor = interpolateColor(
+              progress.value as number,
+              [0, 1],
+              [colorFrom[key as keyof typeof colorFrom], sharedValues[`${key}To`].value as string]
+            );
+            colorFrom[key as keyof typeof colorFrom] = currentColor;
+            sharedValues[`${key}To`].value = value as string;
             progress.value = 0;
             progress.value = withTiming(1, {
               duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
@@ -347,10 +335,7 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
           style[key] = interpolateColor(
             sharedValue.value as number,
             [0, 1],
-            [
-              colorValues.current[key as keyof typeof colorValues.current].from,
-              colorValues.current[key as keyof typeof colorValues.current].to,
-            ]
+            [colorFrom[key as keyof typeof colorFrom], sharedValues[`${key}To`].value as string]
           );
         } else {
           style[key] = sharedValue.value;
