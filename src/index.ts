@@ -125,7 +125,7 @@ const DEFAULT_TRANSITION: TransitionProps = {
 };
 
 function createMotionComponent<T extends ComponentType<any>>(Component: T) {
-  return function MotionComponent(props: MotionComponentProps & React.ComponentProps<T>) {
+  return React.forwardRef<any, MotionComponentProps & React.ComponentProps<T>>((props, ref) => {
     const {
       initial = {},
       animate = {},
@@ -351,12 +351,13 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     return React.createElement(
       AnimatedComponent,
       {
+        ref,
         style: [styles, animatedStyle],
-        ...rest,
+        ...(rest as any),
       },
       children
     );
-  };
+  });
 }
 
 function getInitialValue(key: string, initial: AnimationProps | false): number | string {

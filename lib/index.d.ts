@@ -76,14 +76,14 @@ export interface MotionComponentProps {
     children?: React.ReactNode;
 }
 export declare const NativeMotion: {
-    View: (props: MotionComponentProps & import("react-native").ViewProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    Text: (props: MotionComponentProps & import("react-native").TextProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    Image: (props: MotionComponentProps & import("react-native").ImageProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    ImageBackground: (props: MotionComponentProps & import("react-native").ImageBackgroundProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    TextInput: (props: MotionComponentProps & import("react-native").TextInputProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    TouchableOpacity: (props: MotionComponentProps & import("react-native").TouchableOpacityProps & React.RefAttributes<View>) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    ScrollView: (props: MotionComponentProps & import("react-native").ScrollViewProps) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    FlatList: (props: MotionComponentProps & import("react-native").FlatListProps<unknown>) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    SectionList: (props: MotionComponentProps & import("react-native").SectionListProps<unknown, unknown>) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
-    Pressable: (props: MotionComponentProps & import("react-native").PressableProps & React.RefAttributes<View>) => React.ReactElement<import("react-native-reanimated").AnimateProps<any>, string | React.JSXElementConstructor<any>>;
+    View: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").ViewProps & React.RefAttributes<any>>;
+    Text: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").TextProps & React.RefAttributes<any>>;
+    Image: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").ImageProps & React.RefAttributes<any>>;
+    ImageBackground: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").ImageBackgroundProps & React.RefAttributes<any>>;
+    TextInput: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").TextInputProps & React.RefAttributes<any>>;
+    TouchableOpacity: React.ForwardRefExoticComponent<Omit<MotionComponentProps & import("react-native").TouchableOpacityProps & React.RefAttributes<View>, "ref"> & React.RefAttributes<any>>;
+    ScrollView: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").ScrollViewProps & React.RefAttributes<any>>;
+    FlatList: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").FlatListProps<unknown> & React.RefAttributes<any>>;
+    SectionList: React.ForwardRefExoticComponent<MotionComponentProps & import("react-native").SectionListProps<unknown, unknown> & React.RefAttributes<any>>;
+    Pressable: React.ForwardRefExoticComponent<Omit<MotionComponentProps & import("react-native").PressableProps & React.RefAttributes<View>, "ref"> & React.RefAttributes<any>>;
 };
