@@ -29,7 +29,7 @@ import { NativeMotion } from 'motion-on-native';
   transition={{ type: 'spring', damping: 15, stiffness: 100 }}
 >
   <Text>Animated content</Text>
-</NativeMotion.View>
+</NativeMotion.View>;
 ```
 
 ## Components
@@ -51,50 +51,50 @@ import { NativeMotion } from 'motion-on-native';
 - `animate`: AnimationProps - Target animation state
 - `exit`: AnimationProps - Exit animation state
 - `transition`: TransitionProps - Animation configuration
-- `onExitComplete`: () => void - Called when exit animation completes
-- `whileHover`: AnimationProps - Animation state while hovering
-- `whileTap`: AnimationProps - Animation state while tapping
-- `whileFocus`: AnimationProps - Animation state while focused
-- `layout`: boolean - Enable layout animations
-- `layoutId`: string - Layout animation identifier
 - `styles`: ViewStyle - Additional styles
 
 ## Animation Properties
 
 ### Transform
+
 - `opacity`: 0-1
-- `x`, `y`, `z`: translation shortcuts
 - `translateX`, `translateY`: translation in pixels
 - `scale`, `scaleX`, `scaleY`: size multipliers
 - `rotate`, `rotateX`, `rotateY`, `rotateZ`: rotation (e.g., '45deg')
 - `skewX`, `skewY`: skew transformations
 
 ### Layout
+
 - `width`, `height`: dimensions
-- `minWidth`, `minHeight`, `maxWidth`, `maxHeight`: size constraints
 
 ### Spacing
+
 - `margin`, `marginTop`, `marginBottom`, `marginLeft`, `marginRight`
 - `marginHorizontal`, `marginVertical`
 - `padding`, `paddingTop`, `paddingBottom`, `paddingLeft`, `paddingRight`
 - `paddingHorizontal`, `paddingVertical`
 
 ### Border
+
 - `borderRadius`, `borderTopLeftRadius`, `borderTopRightRadius`, `borderBottomLeftRadius`, `borderBottomRightRadius`
 - `borderWidth`, `borderTopWidth`, `borderBottomWidth`, `borderLeftWidth`, `borderRightWidth`
 - `borderColor`, `borderTopColor`, `borderBottomColor`, `borderLeftColor`, `borderRightColor`
 
 ### Colors
-- `backgroundColor`: color value
-- `color`: text color
+
+- `backgroundColor`: color value (BETA)
+- `color`: text color (BETA)
 
 ### Position
+
 - `top`, `bottom`, `left`, `right`: positioning
 
 ### Shadow (iOS)
+
 - `shadowColor`, `shadowOpacity`, `shadowRadius`
 
 ### Elevation (Android)
+
 - `elevation`: shadow depth
 
 ## Transition Configuration
@@ -125,6 +125,7 @@ transition={{
 ```
 
 ### Transition Properties
+
 - `type`: 'spring' | 'timing'
 - `duration`: animation duration in ms
 - `damping`: spring damping (spring only)

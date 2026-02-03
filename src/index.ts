@@ -111,7 +111,7 @@ export interface MotionComponentProps {
   whileFocus?: AnimationProps; // Future Implementation
   layout?: boolean; // Future Implementation
   layoutId?: string; // Future Implementation
-  styles?: ViewStyle; // Future Implementation
+  styles?: ViewStyle;
   children?: React.ReactNode;
 }
 
