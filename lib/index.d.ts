@@ -2,9 +2,6 @@ import React from 'react';
 import { View, ViewStyle } from 'react-native';
 export interface AnimationProps {
     opacity?: number;
-    x?: number;
-    y?: number;
-    z?: number;
     translateX?: number;
     translateY?: number;
     scale?: number;
@@ -18,10 +15,6 @@ export interface AnimationProps {
     skewY?: string;
     width?: number;
     height?: number;
-    minWidth?: number;
-    minHeight?: number;
-    maxWidth?: number;
-    maxHeight?: number;
     margin?: number;
     marginTop?: number;
     marginBottom?: number;
@@ -47,10 +40,6 @@ export interface AnimationProps {
     borderLeftWidth?: number;
     borderRightWidth?: number;
     borderColor?: string;
-    borderTopColor?: string;
-    borderBottomColor?: string;
-    borderLeftColor?: string;
-    borderRightColor?: string;
     backgroundColor?: string;
     color?: string;
     top?: number;
@@ -78,16 +67,12 @@ export interface MotionComponentProps {
     animate?: AnimationProps;
     exit?: AnimationProps;
     transition?: TransitionProps;
-    shouldAnimate?: boolean;
-    shouldDeAnimate?: boolean;
-    shouldExit?: boolean;
-    onExitComplete?: () => void;
     whileHover?: AnimationProps;
     whileTap?: AnimationProps;
     whileFocus?: AnimationProps;
     layout?: boolean;
     layoutId?: string;
-    style?: ViewStyle;
+    styles?: ViewStyle;
     children?: React.ReactNode;
 }
 export declare const NativeMotion: {
