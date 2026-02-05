@@ -1,4 +1,4 @@
-import React, { ComponentType, useEffect, useRef } from 'react';
+import React, { ComponentType, useCallback, useEffect, useRef } from 'react';
 import {
   FlatList,
   Image,
@@ -15,105 +15,14 @@ import {
 import Animated, {
   Easing,
   interpolateColor,
+  runOnJS,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withRepeat,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-
-export interface AnimationProps {
-  // Transform properties
-  opacity?: number;
-  translateX?: number;
-  translateY?: number;
-  scale?: number;
-  scaleX?: number;
-  scaleY?: number;
-  rotate?: string;
-  rotateX?: string;
-  rotateY?: string;
-  rotateZ?: string;
-  skewX?: string;
-  skewY?: string;
-
-  // Layout properties
-  width?: number;
-  height?: number;
-
-  // Spacing properties
-  margin?: number;
-  marginTop?: number;
-  marginBottom?: number;
-  marginLeft?: number;
-  marginRight?: number;
-  marginHorizontal?: number;
-  marginVertical?: number;
-  padding?: number;
-  paddingTop?: number;
-  paddingBottom?: number;
-  paddingLeft?: number;
-  paddingRight?: number;
-  paddingHorizontal?: number;
-  paddingVertical?: number;
-
-  // Border properties
-  borderRadius?: number;
-  borderTopLeftRadius?: number;
-  borderTopRightRadius?: number;
-  borderBottomLeftRadius?: number;
-  borderBottomRightRadius?: number;
-  borderWidth?: number;
-  borderTopWidth?: number;
-  borderBottomWidth?: number;
-  borderLeftWidth?: number;
-  borderRightWidth?: number;
-  borderColor?: string;
-
-  // Color properties
-  backgroundColor?: string;
-  color?: string;
-
-  // Position properties
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-
-  // Shadow properties (iOS)
-  shadowColor?: string;
-  shadowOpacity?: number;
-  shadowRadius?: number;
-
-  // Elevation (Android)
-  elevation?: number;
-}
-
-export interface TransitionProps {
-  type?: 'spring' | 'timing';
-  duration?: number;
-  damping?: number;
-  stiffness?: number;
-  mass?: number;
-  delay?: number;
-  ease?: string;
-  repeat?: number | 'infinity';
-  repeatType?: 'loop' | 'reverse';
-}
-
-export interface MotionComponentProps {
-  initial?: AnimationProps | false;
-  animate?: AnimationProps;
-  exit?: AnimationProps;
-  transition?: TransitionProps;
-  whileHover?: AnimationProps; // Future Implementation
-  whileTap?: AnimationProps; // Future Implementation
-  whileFocus?: AnimationProps; // Future Implementation
-  layout?: boolean; // Future Implementation
-  layoutId?: string; // Future Implementation
-  styles?: ViewStyle;
-  children?: React.ReactNode;
-}
 
 const DEFAULT_TRANSITION: TransitionProps = {
   type: 'spring',
@@ -129,7 +38,7 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     const {
       initial = {},
       animate = {},
-      exit = {}, // Future Implementation
+      exit = {},
       transition = DEFAULT_TRANSITION,
       whileHover, // Future Implementation
       whileTap, // Future Implementation
@@ -138,6 +47,10 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       layoutId, // Future Implementation
       styles = {},
       children,
+      animationId = null,
+      isPresent,
+      onExitComplete,
+      exitComplete,
       ...rest
     } = props;
     const sharedValues: {
@@ -211,83 +124,127 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       shadowColor: getInitialValue('shadowColor', initial) as string,
     };
 
+    const trackAniamtion = (finished: boolean | undefined) => {
+      console.log(
+        'Track aniamtion called, with finiched value ',
+        finished,
+        'present value, ',
+        isPresent
+      );
+      if (finished && onExitComplete && !isPresent) {
+        runOnJS(onExitComplete)(!isPresent);
+      }
+    };
     // Animation helper
-    const animateToValues = (targetValues: AnimationProps, transitionConfig = transition) => {
-      Object.entries(targetValues).forEach(([key, value]) => {
-        if (value !== undefined) {
-          // Handle color properties
-          if (['backgroundColor', 'color', 'borderColor', 'shadowColor'].includes(key)) {
-            const progress = sharedValues[key];
-            // Capture current interpolated color as new 'from' value
-            const currentColor = interpolateColor(
-              progress.value as number,
-              [0, 1],
-              [colorFrom[key as keyof typeof colorFrom], sharedValues[`${key}To`].value as string]
-            );
-            colorFrom[key as keyof typeof colorFrom] = currentColor;
-            sharedValues[`${key}To`].value = value as string;
-            progress.value = 0;
-            progress.value = withTiming(1, {
-              duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
-            });
-            return;
-          }
-
-          // Handle non-color properties
-          const sharedValue = getSharedValue(key);
-          if (sharedValue) {
-            let config;
-
-            if (
-              transitionConfig.repeat &&
-              (transitionConfig.repeat > 0 || transitionConfig.repeat === 'infinity')
-            ) {
-              const baseAnimation =
-                transitionConfig.type === 'spring'
-                  ? withSpring(value, {
-                      damping: transitionConfig.damping ?? DEFAULT_TRANSITION.damping!,
-                      stiffness: transitionConfig.stiffness ?? DEFAULT_TRANSITION.stiffness!,
-                      mass: transitionConfig.mass ?? 1,
-                    })
-                  : withTiming(value, {
-                      duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
-                      easing: Easing.linear,
-                    });
-
-              const repeatCount =
-                transitionConfig.repeat === 'infinity' ? -1 : transitionConfig.repeat;
-              const reverse = transitionConfig.repeatType === 'reverse';
-
-              config = withRepeat(baseAnimation, repeatCount, reverse);
-            } else {
-              config =
-                transitionConfig.type === 'spring'
-                  ? withSpring(value, {
-                      damping: transitionConfig.damping ?? DEFAULT_TRANSITION.damping!,
-                      stiffness: transitionConfig.stiffness ?? DEFAULT_TRANSITION.stiffness!,
-                      mass: transitionConfig.mass ?? 1,
-                    })
-                  : withTiming(value, {
-                      duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
-                    });
+    const animateToValues = useCallback(
+      (targetValues: AnimationProps, transitionConfig = transition) => {
+        Object.entries(targetValues).forEach(([key, value]) => {
+          if (value !== undefined) {
+            // Handle color properties
+            if (['backgroundColor', 'color', 'borderColor', 'shadowColor'].includes(key)) {
+              const progress = sharedValues[key];
+              // Capture current interpolated color as new 'from' value
+              const currentColor = interpolateColor(
+                progress.value as number,
+                [0, 1],
+                [colorFrom[key as keyof typeof colorFrom], sharedValues[`${key}To`].value as string]
+              );
+              colorFrom[key as keyof typeof colorFrom] = currentColor;
+              sharedValues[`${key}To`].value = value as string;
+              progress.value = 0;
+              progress.value = withDelay(
+                transitionConfig.delay ?? DEFAULT_TRANSITION.delay!,
+                withTiming(
+                  1,
+                  {
+                    duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
+                  },
+                  trackAniamtion
+                )
+              );
+              return;
             }
 
-            if (transitionConfig.delay) {
-              setTimeout(() => {
+            // Handle non-color properties
+            const sharedValue = getSharedValue(key);
+            if (sharedValue) {
+              let config;
+
+              if (
+                transitionConfig.repeat &&
+                (transitionConfig.repeat > 0 || transitionConfig.repeat === 'infinity')
+              ) {
+                const baseAnimation =
+                  transitionConfig.type === 'spring'
+                    ? withDelay(
+                        transitionConfig.delay ?? DEFAULT_TRANSITION.delay!,
+                        withSpring(
+                          value,
+                          {
+                            damping: transitionConfig.damping ?? DEFAULT_TRANSITION.damping!,
+                            stiffness: transitionConfig.stiffness ?? DEFAULT_TRANSITION.stiffness!,
+                            mass: transitionConfig.mass ?? 1,
+                          },
+                          trackAniamtion
+                        )
+                      )
+                    : withDelay(
+                        transitionConfig.delay ?? DEFAULT_TRANSITION.delay!,
+                        withTiming(
+                          value,
+                          {
+                            duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
+                            easing: Easing.linear,
+                          },
+                          trackAniamtion
+                        )
+                      );
+
+                const repeatCount =
+                  transitionConfig.repeat === 'infinity' ? -1 : transitionConfig.repeat;
+                const reverse = transitionConfig.repeatType === 'reverse';
+
+                config = withRepeat(baseAnimation, repeatCount, reverse);
+              } else {
+                config =
+                  transitionConfig.type === 'spring'
+                    ? withSpring(
+                        value,
+                        {
+                          damping: transitionConfig.damping ?? DEFAULT_TRANSITION.damping!,
+                          stiffness: transitionConfig.stiffness ?? DEFAULT_TRANSITION.stiffness!,
+                          mass: transitionConfig.mass ?? 1,
+                        },
+                        trackAniamtion
+                      )
+                    : withTiming(
+                        value,
+                        {
+                          duration: transitionConfig.duration ?? DEFAULT_TRANSITION.duration!,
+                        },
+                        trackAniamtion
+                      );
+              }
+
+              if (transitionConfig.delay) {
+                sharedValue.value = withDelay(transitionConfig.delay, config);
+              } else {
                 sharedValue.value = config;
-              }, transitionConfig.delay);
-            } else {
-              sharedValue.value = config;
+              }
             }
           }
-        }
-      });
-    };
-
+        });
+      },
+      [transition]
+    );
+    // Temp effect to check is Present
+    useEffect(() => {
+      console.log(`Is Present from inside the effect of  component ${animationId}, ${isPresent}`);
+    }, [isPresent]);
     // Get shared value by key
-    const getSharedValue = (key: string) => {
+    const getSharedValue = useCallback((key: string) => {
       return sharedValues[key];
-    };
+    }, []);
     // Set initial values on mount
     useEffect(() => {
       if (initial !== false) {
@@ -309,12 +266,9 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     const animatedStyle = useAnimatedStyle(() => {
       const style: any = {};
       const transform: any[] = [];
-      const passedProps = {
-        ...(initial !== false ? initial : {}),
-        ...animate,
-      };
-      Object.entries(passedProps).forEach(([key, value]) => {
+      Object.entries(animate).forEach(([key]) => {
         const sharedValue = sharedValues[key];
+
         if (
           [
             'translateX',
@@ -342,7 +296,6 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
         }
       });
 
-      // Position properties
       if (transform.length > 0) style.transform = transform;
       return style;
     });
@@ -443,3 +396,98 @@ export const NativeMotion = {
   SectionList: createMotionComponent(SectionList),
   Pressable: createMotionComponent(Pressable),
 };
+export interface AnimationProps {
+  // Transform properties
+  opacity?: number;
+  translateX?: number;
+  translateY?: number;
+  scale?: number;
+  scaleX?: number;
+  scaleY?: number;
+  rotate?: string;
+  rotateX?: string;
+  rotateY?: string;
+  rotateZ?: string;
+  skewX?: string;
+  skewY?: string;
+
+  // Layout properties
+  width?: number;
+  height?: number;
+
+  // Spacing properties
+  margin?: number;
+  marginTop?: number;
+  marginBottom?: number;
+  marginLeft?: number;
+  marginRight?: number;
+  marginHorizontal?: number;
+  marginVertical?: number;
+  padding?: number;
+  paddingTop?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingHorizontal?: number;
+  paddingVertical?: number;
+
+  // Border properties
+  borderRadius?: number;
+  borderTopLeftRadius?: number;
+  borderTopRightRadius?: number;
+  borderBottomLeftRadius?: number;
+  borderBottomRightRadius?: number;
+  borderWidth?: number;
+  borderTopWidth?: number;
+  borderBottomWidth?: number;
+  borderLeftWidth?: number;
+  borderRightWidth?: number;
+  borderColor?: string;
+
+  // Color properties
+  backgroundColor?: string;
+  color?: string;
+
+  // Position properties
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+
+  // Shadow properties (iOS)
+  shadowColor?: string;
+  shadowOpacity?: number;
+  shadowRadius?: number;
+
+  // Elevation (Android)
+  elevation?: number;
+}
+
+export interface TransitionProps {
+  type?: 'spring' | 'timing';
+  duration?: number;
+  damping?: number;
+  stiffness?: number;
+  mass?: number;
+  delay?: number;
+  ease?: string;
+  repeat?: number | 'infinity';
+  repeatType?: 'loop' | 'reverse';
+}
+
+export interface MotionComponentProps {
+  initial?: AnimationProps | false;
+  animate?: AnimationProps;
+  exit?: AnimationProps;
+  transition?: TransitionProps;
+  whileHover?: AnimationProps; // Future Implementation
+  whileTap?: AnimationProps; // Future Implementation
+  whileFocus?: AnimationProps; // Future Implementation
+  layout?: boolean; // Future Implementation
+  layoutId?: string; // Future Implementation
+  styles?: ViewStyle;
+  children?: React.ReactNode;
+  animationId?: string | number;
+  onExitComplete?: () => void;
+  isPresent?: boolean;
+}
