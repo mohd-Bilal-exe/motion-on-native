@@ -1,5 +1,3 @@
-'use client';
-
 import { useCallback, useContext, useEffect, useId } from 'react';
 import { PresenceContext } from '../contexts/PresenceContexts';
 import { PresenceContextProps } from '../types/types';
@@ -50,6 +48,7 @@ export function usePresence(subscribe: boolean = true): AlwaysPresent | Present 
     if (subscribe) {
       return register(id);
     }
+    return;
   }, [subscribe]);
 
   const safeToRemove = useCallback(

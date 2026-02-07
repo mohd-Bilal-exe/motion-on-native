@@ -3,56 +3,52 @@ import { useContext, useMemo, useRef, useState } from 'react';
 import { useConstant } from './constants/useConstants';
 import { LayoutGroupContext } from './contexts/LayoutGroupcontexts';
 import { usePresence } from './hooks/usePresence';
-import { AnimatePresenceProps } from './types/types';
+import { AnimatedExitProps } from './types/types';
 import { ComponentKey, getChildKey, onlyElements } from './utils/utils';
 
 /**
- * `AnimatePresence` enables the animation of components that have been removed from the tree.
+ * `AnimatedExit` enables the animation of components when they are removed from the tree.
  *
  * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
  *
- * Any `motion` components that have an `exit` property defined will animate out when removed from
+ * Any `NativeMotion` components that have an `exit` property defined will animate out when removed from
  * the tree.
  *
  * ```jsx
- * import { motion, AnimatePresence } from 'framer-motion'
+ * import { NativeMotion, AnimatedExit } from 'motion-on-native'
  *
  * export const Items = ({ items }) => (
- *   <AnimatePresence>
+ *   <AniamtedExit>
  *     {items.map(item => (
- *       <motion.div
+ *       <NativeMotion.View
  *         key={item.id}
  *         initial={{ opacity: 0 }}
  *         animate={{ opacity: 1 }}
  *         exit={{ opacity: 0 }}
  *       />
  *     ))}
- *   </AnimatePresence>
+ *   </AniamtedExit>
  * )
  * ```
  *
- * You can sequence exit animations throughout a tree using variants.
+ * You can sequence exit animations throughout a tree.
  *
- * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
- * once all `motion` components have finished animating out. Likewise, any components using
- * `usePresence` all need to call `safeToRemove`.
+ * If a child contains multiple `NativeMotion` components with `exit` props, it will only unmount the child
+ * once all `NativeMotion` components have finished animating out.
  *
  * @public
  */
 export default function AnimatedExit({
   children,
-  custom,
-  initial = true,
   onExitComplete,
-  presenceAffectsLayout = true,
   mode = 'sync',
   propagate = false,
-  anchorX = 'left',
-  anchorY = 'top',
-  root,
-}: React.PropsWithChildren<AnimatePresenceProps>) {
+}: React.PropsWithChildren<AnimatedExitProps>) {
+  function newChildrenMap(): Map<string, boolean> {
+    return new Map();
+  }
   const [isParentPresent, safeToRemove] = usePresence(propagate);
-
+  const presenceChildren = useConstant(newChildrenMap);
   /**
    * Filter any children that aren't ReactElements. We can only track components
    * between renders with a props.key.
@@ -93,7 +89,6 @@ export default function AnimatedExit({
    */
   const [diffedChildren, setDiffedChildren] = useState(presentChildren);
   const [renderedChildren, setRenderedChildren] = useState(presentChildren);
-
   React.useEffect(() => {
     isInitialRender.current = false;
     pendingPresentChildren.current = presentChildren;
@@ -154,7 +149,7 @@ export default function AnimatedExit({
 
   if (mode === 'wait' && renderedChildren.length > 1) {
     console.warn(
-      `You're attempting to animate multiple children within AnimatePresence, but its mode is set to "wait". This will lead to odd visual behaviour.`
+      `You're attempting to animate multiple children within AnimatedExit, but its mode is set to "wait". This will lead to odd visual behaviour.`
     );
   }
 
@@ -175,45 +170,64 @@ export default function AnimatedExit({
             : presentChildren === renderedChildren || presentKeys.includes(key);
 
         const onExit = () => {
+          console.log(`[${new Date().toISOString()}] 🔴 onExit called for key: ${key}`);
+
           if (exitingComponents.current.has(key)) {
+            console.log(`[${new Date().toISOString()}] ⚠️ Already in exitingComponents, returning`);
             return;
           }
+
+          console.log(`[${new Date().toISOString()}] ✅ Adding ${key} to exitingComponents`);
           exitingComponents.current.add(key);
+
+          console.log(
+            `[${new Date().toISOString()}] 📊 exitComplete.has(${key}): ${exitComplete.has(key)}`
+          );
           if (exitComplete.has(key)) {
+            console.log(`[${new Date().toISOString()}] ✅ Setting exitComplete[${key}] = true`);
             exitComplete.set(key, true);
           } else {
+            console.log(
+              `[${new Date().toISOString()}] ⚠️ exitComplete doesn't have key, returning`
+            );
             return;
           }
+
           let isEveryExitComplete = true;
+          console.log(`[${new Date().toISOString()}] 📊 Checking all exitComplete entries:`);
           exitComplete.forEach((isExitComplete, mapKey) => {
+            console.log(`[${new Date().toISOString()}]   - ${mapKey}: ${isExitComplete}`);
             if (!isExitComplete) isEveryExitComplete = false;
           });
+
+          console.log(
+            `[${new Date().toISOString()}] 📊 isEveryExitComplete: ${isEveryExitComplete}`
+          );
           if (isEveryExitComplete) {
+            console.log(`[${new Date().toISOString()}] 🎉 All exits complete! Cleaning up...`);
             forceRender?.();
             setRenderedChildren(pendingPresentChildren.current);
             propagate && safeToRemove?.();
             onExitComplete && onExitComplete();
           }
         };
-        const checkAnimationComplete = (present: boolean) => {
-          console.log(
-            `Animation complete for ${child.props.animationId}, is Present passed from component, ${present}`
-          );
-          if (!present) {
-            exitComplete.set(child.props.animationId, true);
+        const checkAnimationComplete = () => {
+          const isExiting = exitComplete.has(key);
+          if (isExiting) {
             onExit();
           }
         };
-        console.log(`Component ${child.props.animationId} is present?, `, isPresent);
         // Animate exit working just fine but DOM se nhii nikal rha
         return React.createElement(child.type as any, {
           ...child.props,
           animate: isPresent ? child.props.animate : child.props.exit,
           key,
           isPresent,
+          markPresent: () => {
+            presenceChildren.set(child.props.animationId, true);
+          },
           onExitComplete: checkAnimationComplete,
-          custom,
-          root,
+          exitComplete,
         });
       })}
     </>

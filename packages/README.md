@@ -1,6 +1,6 @@
 # Motion on Native
 
-Framer Motion-like animations for React Native using Reanimated.
+Framer Motion–inspired animations for React Native built on Reanimated.
 
 ## Installation
 
@@ -20,6 +20,8 @@ This package requires:
 
 ## Usage
 
+### Basic Animation
+
 ```tsx
 import { NativeMotion } from 'motion-on-native';
 
@@ -30,6 +32,26 @@ import { NativeMotion } from 'motion-on-native';
 >
   <Text>Animated content</Text>
 </NativeMotion.View>;
+```
+
+### Exit Animations with AnimatedExit
+
+```tsx
+import { NativeMotion, AnimatedExit } from 'motion-on-native';
+
+<AnimatedExit>
+  {isVisible && (
+    <NativeMotion.View
+      key="item"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ type: 'spring', damping: 15 }}
+    >
+      <Text>I will animate out when removed</Text>
+    </NativeMotion.View>
+  )}
+</AnimatedExit>;
 ```
 
 ## Components
@@ -45,11 +67,26 @@ import { NativeMotion } from 'motion-on-native';
 - `NativeMotion.SectionList`
 - `NativeMotion.Pressable`
 
-## Props
+## AnimatedExit
+
+Enables exit animations for components being removed from the tree.
+
+### Props
+
+- `mode`: 'sync' | 'wait' - Animation mode (default: 'sync')
+- `onExitComplete`: () => void - Callback when all exit animations complete
+
+### Important Notes
+
+- Each child must have a unique `key` prop
+- Only direct children with `exit` prop will animate out
+- Component unmounts after exit animation completes
+
+## Component Props
 
 - `initial`: AnimationProps | false - Initial animation state
 - `animate`: AnimationProps - Target animation state
-- `exit`: AnimationProps - Exit animation state
+- `exit`: AnimationProps - Exit animation state (requires AnimatedExit)
 - `transition`: TransitionProps - Animation configuration
 - `styles`: ViewStyle - Additional styles
 
@@ -80,10 +117,9 @@ import { NativeMotion } from 'motion-on-native';
 - `borderWidth`, `borderTopWidth`, `borderBottomWidth`, `borderLeftWidth`, `borderRightWidth`
 - `borderColor`, `borderTopColor`, `borderBottomColor`, `borderLeftColor`, `borderRightColor`
 
-### Colors
+### Colors (BETA)
 
-- `backgroundColor`: color value (BETA)
-- `color`: text color (BETA)
+Color interpolation uses Reanimated color interpolation and may change in future releases.
 
 ### Position
 
@@ -135,6 +171,22 @@ transition={{
 - `ease`: easing function name
 - `repeat`: number of repeats or 'infinity'
 - `repeatType`: 'loop' | 'reverse'
+
+## Scope & Non-goals
+
+Motion on Native focuses on declarative animations and exit presence.
+It does not aim to fully replicate Motion’s web feature set
+(e.g. layout animations, gestures, or shared layout transitions).
+
+## Acknowledgements
+
+This library adapts core animation concepts and presence-management ideas from
+Motion (formerly Framer Motion), which is licensed under the MIT License.
+
+AnimatedExit is inspired by Motion’s presence system, reimplemented for
+React Native using Reanimated.
+
+© Framer B.V.
 
 ## License
 

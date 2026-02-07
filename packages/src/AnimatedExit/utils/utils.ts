@@ -11,8 +11,6 @@ export const getChildKey = (child: React.ReactElement<WithAnimationId>): Compone
 
 export function onlyElements(children: ReactNode): ReactElement<any>[] {
   const filtered: ReactElement<any>[] = [];
-
-  // We use forEach here instead of map as map mutates the component key by preprending `.$`
   Children.forEach(children, child => {
     if (isValidElement(child)) filtered.push(child);
   });

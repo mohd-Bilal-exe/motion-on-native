@@ -51,6 +51,7 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       isPresent,
       onExitComplete,
       exitComplete,
+      markPresent,
       ...rest
     } = props;
     const sharedValues: {
@@ -125,19 +126,13 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
     };
 
     const trackAniamtion = (finished: boolean | undefined) => {
-      console.log(
-        'Track aniamtion called, with finiched value ',
-        finished,
-        'present value, ',
-        isPresent
-      );
-      if (finished && onExitComplete && !isPresent) {
-        runOnJS(onExitComplete)(!isPresent);
+      if (finished && onExitComplete) {
+        runOnJS(onExitComplete)();
       }
     };
     // Animation helper
     const animateToValues = useCallback(
-      (targetValues: AnimationProps, transitionConfig = transition) => {
+      (targetValues: AnimationProps, transitionConfig = transition, isChildPresent: boolean) => {
         Object.entries(targetValues).forEach(([key, value]) => {
           if (value !== undefined) {
             // Handle color properties
@@ -234,13 +229,13 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
             }
           }
         });
+        if (!isChildPresent && exitComplete && animationId) {
+          exitComplete.set(animationId, true);
+        }
       },
       [transition]
     );
-    // Temp effect to check is Present
-    useEffect(() => {
-      console.log(`Is Present from inside the effect of  component ${animationId}, ${isPresent}`);
-    }, [isPresent]);
+
     // Get shared value by key
     const getSharedValue = useCallback((key: string) => {
       return sharedValues[key];
@@ -255,11 +250,12 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
           }
         });
       }
+      runOnJS(markPresent)();
     }, []);
 
     // Handle shouldAnimate: initial -> animate
     useEffect(() => {
-      animateToValues(animate, transition);
+      animateToValues(animate, transition, isPresent);
     }, [animate]);
 
     // Animated style
@@ -384,6 +380,9 @@ function getDefaultValue(key: string): number | string {
   };
   return defaultValues[key as keyof typeof defaultValues];
 }
+
+export { AnimatedExit } from './AnimatedExit';
+export type { AnimatedExitProps } from './AnimatedExit';
 export const NativeMotion = {
   View: createMotionComponent(View),
   Text: createMotionComponent(Text),
