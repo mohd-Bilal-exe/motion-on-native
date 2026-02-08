@@ -1,0 +1,42 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@import 'tailwindcss';
+
+@theme {
+  /* Blacks */
+  --color-black-950: #0f1115; /* main background */
+  --color-black-900: #15181d; /* cards / surfaces */
+  --color-black-850: #1d2127; /* subtle elevation */
+  --color-black-800: #262b31; /* borders / dividers */
+
+  /* Whites */
+  --color-white-50: #f6f4ee; /* main content background */
+  --color-white-100: #eeece5; /* panels / callouts */
+  --color-white-200: #e4e1d9; /* separators / soft fills */
+
+  /* Text */
+  --color-text-primary: #edebe4;
+  --color-text-muted: #9a9ea4;
+  --color-text-faint: #6f747a;
+
+  /* Accent */
+  --color-accent-blue: #4f68cb;
+}
+
+.space-grotesk {
+  font-family: 'Space Grotesk', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.merriweather-sans {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
