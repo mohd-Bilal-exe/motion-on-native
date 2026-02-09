@@ -125,10 +125,10 @@ function StackLayer({ label, desc, active, dim, highlight, delay }: any) {
       transition={{ delay }}
       viewport={{ once: true }}
       className={`
-        p-6 rounded-3xl border transition-all duration-500
-        ${active ? 'text-white-200 bg-black/70 border-black-800' : ''}
+        p-6 rounded-3xl border transition-all duration-500 backdrop-blur-lg
+        ${active ? 'text-white-200 bg-white-200/5 border-black-800' : ''}
         ${highlight ? 'bg-accent-blue text-white-200 border-accent-blue shadow-[0_0_30px_rgba(79,104,203,0.3)] scale-105 z-10' : ''}
-        ${dim ? 'bg-black/70 text-white/40 border-white/5' : ''}
+        ${dim ? 'bg-white-200/5 text-white/40 border-white/5' : ''}
       `}
     >
       <h5 className="font-bold text-sm tracking-tight">{label}</h5>

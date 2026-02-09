@@ -10,23 +10,8 @@ import { FinalCTA } from './components/CTA';
 import { Footer } from '../../components/Footer';
 
 export default function HomePage() {
-  const navigate = useNavigate();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } },
-  };
-
   return (
-    <div className="z-50 flex flex-col items-center w-full min-h-screen text-white-50 selection:bg-accent-blue/30">
+    <div className="z-50 flex flex-col items-center w-full min-h-screen text-white-50 selection:bg-accent-blue/30 space-grotesk">
       <div className="top-0 z-0 fixed w-svw h-full">
         <LightRays
           raysOrigin="top-center"

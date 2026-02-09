@@ -15,13 +15,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "**/*.test.ts",
-    "**/*.test.tsx"
-  ]
+  "include": ["motion-on-native/packages/motion-on-native/src/**/*"],
+  "exclude": ["node_modules"]
 }

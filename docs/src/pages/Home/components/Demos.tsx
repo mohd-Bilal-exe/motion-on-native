@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useMemo } from 'react';
 import { Settings2, Code, Copy, Check, RotateCcw, ChevronDown } from 'lucide-react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 type Tab = 'entry' | 'layout' | 'transform' | 'entry-exit' | 'color';
 
@@ -56,12 +58,12 @@ export default function InteractivePlayground() {
             Interactive Playground
           </h2>
           <p className="max-w-xl text-white/40">
-            Test every facet of Motion on Native. Real-time spring physics powered by Reanimated.
+            Get the gist of Motion on Native. Real-time spring physics powered by Reanimated.
           </p>
         </div>
 
         {/* Tabs Navigation */}
-        <div className="flex flex-wrap gap-2 bg-black/70 p-1.5 border border-white/10 rounded-2xl w-fit">
+        <div className="flex flex-wrap gap-2 bg-white-200/5 p-1.5 border border-white/10 rounded-2xl w-fit">
           {TABS.map(tab => (
             <button
               key={tab}
@@ -79,7 +81,7 @@ export default function InteractivePlayground() {
 
         <div className="gap-6 grid grid-cols-1 lg:grid-cols-12">
           {/* Preview Canvas */}
-          <div className="group relative flex flex-col justify-center items-center lg:col-span-7 bg-black/70 backdrop-blur-xl border border-white/10 rounded-4xl h-full overflow-hidden">
+          <div className="group relative flex flex-col justify-center items-center lg:col-span-7 bg-white-200/5 backdrop-blur-xl border border-white/10 rounded-4xl h-full overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] via-transparent to-transparent from-accent-blue/5" />
 
             <AnimatePresence mode="wait">
@@ -281,7 +283,7 @@ export default function InteractivePlayground() {
 
           {/* Controls & Code */}
           <div className="flex flex-col gap-6 lg:col-span-5">
-            <div className="space-y-6 bg-black/70 p-8 border border-white/10 rounded-4xl">
+            <div className="space-y-6 bg-white-200/5 p-8 border border-white/10 rounded-4xl">
               <div className="flex items-center gap-2 mb-2">
                 <Settings2 className="size-4 text-accent-blue" />
                 <span className="font-bold text-white/60 text-xs uppercase tracking-widest">
@@ -314,7 +316,7 @@ export default function InteractivePlayground() {
               )}
             </div>
 
-            <div className="group relative bg-black/70 p-6 border border-white/10 rounded-4xl">
+            <div className="group relative bg-white-200/5 p-6 border border-white/10 rounded-4xl">
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2 text-white/40">
                   <Code className="size-4" />
@@ -332,7 +334,22 @@ export default function InteractivePlayground() {
                 </button>
               </div>
               <pre className="overflow-x-auto font-mono text-[13px] leading-relaxed text-accent-blue">
-                <code>{transitionCode}</code>
+                <SyntaxHighlighter
+                  language="tsx"
+                  style={gruvboxDark}
+                  customStyle={{
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    fontSize: '13px',
+                    lineHeight: '1.6',
+                    margin: 0,
+                  }}
+                  showLineNumbers={false}
+                  wrapLines={true}
+                >
+                  {transitionCode}
+                </SyntaxHighlighter>
               </pre>
             </div>
           </div>

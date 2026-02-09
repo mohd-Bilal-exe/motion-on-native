@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 export default function Hero() {
   const navigate = useNavigate();
   return (
-    <section className="relative flex flex-col justify-center items-center px-6 pt-40 pb-20 w-full overflow-hidden text-center">
+    <section className="relative flex flex-col justify-center items-center px-6 pt-40 pb-20 w-full overflow-hidden text-center space-grotesk">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -19,7 +19,7 @@ export default function Hero() {
       </motion.div>
 
       <motion.h1
-        className="mb-6 font-bold text-6xl md:text-8xl tracking-tight space-grotesk"
+        className="mb-6 font-bold text-6xl md:text-8xl tracking-tight"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >

@@ -1,9 +1,11 @@
+import { Logo } from './Topbar';
+
 export function Footer() {
   return (
     <footer className="flex md:flex-row flex-col justify-between items-center gap-8 mx-auto px-6 py-12 border-white/5 border-t w-full max-w-6xl">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-2 font-bold text-lg uppercase tracking-tighter space-grotesk">
-          <div className="rounded-sm size-4 bg-accent-blue" />
+        <div className="flex items-center gap-2 overflow-hidden font-bold text-lg uppercase tracking-tighter space-grotesk">
+          <Logo className="-mb-1 p-2 size-15 overflow-hidden text-accent-blue" />
           Motion On Native
         </div>
         <p className="text-white/20 text-xs">Built on React Native Reanimated 3.</p>
