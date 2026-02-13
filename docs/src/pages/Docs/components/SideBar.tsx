@@ -1,4 +1,4 @@
-import { Brain, BrainCircuit, Handshake, Menu, X } from 'lucide-react';
+import { BrainCircuit, Handshake, Menu, X } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Logo } from '../../../components/Topbar';
 import { useResponsive } from '../../../hooks/useResponsive';
