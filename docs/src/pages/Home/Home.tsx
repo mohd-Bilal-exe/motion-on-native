@@ -1,6 +1,4 @@
-import { motion } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
-import { ChevronRight, Zap, Layers, Wind, Code2 } from 'lucide-react';
+
 import LightRays from '../../components/LightRays';
 import Hero from './components/Hero';
 import Demos from './components/Demos';
