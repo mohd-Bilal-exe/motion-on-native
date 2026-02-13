@@ -74,7 +74,7 @@ export interface TransitionProps {
   stiffness?: number;
   mass?: number;
   delay?: number;
-  ease?: string;
+  ease?: 'linear' | 'ease' | 'ease-in' | 'ease-in-out' | 'ease-out' | 'step-start' | 'step-end';
   repeat?: number | 'infinity';
   repeatType?: 'loop' | 'reverse';
 }

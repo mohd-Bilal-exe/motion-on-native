@@ -303,6 +303,7 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
       {
         ref,
         style: [styles, animatedStyle],
+        ...presenceAnimation,
         ...(rest as any),
       },
       children

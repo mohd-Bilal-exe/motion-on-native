@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/Home/Home';
-import Documentation from './pages/Documentation';
+import Documentation from './pages/Docs/Documentation';
 import Topbar from './components/Topbar';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <section id="mainContent" className="z-0 flex pt-20">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/docs" element={<Documentation />} />
+          <Route path="/docs/*" element={<Documentation />} />
         </Routes>
       </section>
     </main>

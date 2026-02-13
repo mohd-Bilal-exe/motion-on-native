@@ -2,7 +2,7 @@ import { Logo } from './Topbar';
 
 export function Footer() {
   return (
-    <footer className="flex md:flex-row flex-col justify-between items-center gap-8 mx-auto px-6 py-12 border-white/5 border-t w-full max-w-6xl">
+    <footer className="z-500 flex md:flex-row flex-col justify-between items-center gap-8 mx-auto px-6 py-12 border-white/5 border-t w-full max-w-6xl">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 overflow-hidden font-bold text-lg uppercase tracking-tighter space-grotesk">
           <Logo className="-mb-1 p-2 size-15 overflow-hidden text-accent-blue" />
@@ -25,7 +25,7 @@ export function Footer() {
 
       <div className="flex items-center gap-4 bg-white/5 px-4 py-2 border border-white/10 rounded-full">
         <span className="font-bold text-[10px] text-white/30 uppercase tracking-widest">
-          v1.0.0-beta
+          v1.5.1-beta
         </span>
         <div className="bg-white/20 w-px h-3" />
         <span className="font-bold text-[10px] text-green-500 uppercase tracking-widest">
