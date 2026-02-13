@@ -70,7 +70,10 @@ export default function Topbar() {
                 <Github className="size-4" />
                 <span>Github</span>
               </button>
-              <button className="flex justify-center items-center gap-1 bg-transparent hover:bg-white-200 px-4 rounded-full text-md text-white-200/30 hover:text-black-850 transition-all ease-in-out cursor-pointer">
+              <button
+                onClick={() => redirectToPath('https://buymeacoffee.com/mohammad.bilal')}
+                className="flex justify-center items-center gap-1 bg-transparent hover:bg-white-200 px-4 rounded-full text-md text-white-200/30 hover:text-black-850 transition-all ease-in-out cursor-pointer"
+              >
                 <Coffee className="size-4" />
                 <span>Buy me a coffee</span>
               </button>
