@@ -12,14 +12,19 @@ export function Footer() {
       </div>
 
       <div className="flex gap-8 font-medium text-white/40 text-sm">
-        <a href="https://github.com" className="hover:text-white transition-colors">
+        <a
+          href="https://github.com/mohd-Bilal-exe/motion-on-native"
+          target="_blank"
+          className="hover:text-white transition-colors"
+        >
           GitHub
         </a>
-        <a href="#" className="hover:text-white transition-colors">
-          Discussions
-        </a>
-        <a href="#" className="hover:text-white transition-colors">
-          Twitter / X
+        <a
+          target="_blank"
+          href="https://github.com/mohd-Bilal-exe"
+          className="hover:text-white transition-colors"
+        >
+          The Developer
         </a>
       </div>
 

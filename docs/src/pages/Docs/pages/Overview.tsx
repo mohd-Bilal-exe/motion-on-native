@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flame, Zap, Lightbulb, ChevronRight } from 'lucide-react';
+import { Flame, Zap, Lightbulb } from 'lucide-react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
@@ -88,21 +88,20 @@ function Section({
 
       <div className="flex md:flex-row flex-col gap-12">
         <div className="flex flex-col flex-1 gap-8">
-          <p className="max-w-2xl font-medium text-neutral-400 text-xl leading-relaxed">
+          <p
+            className={`max-w-2xl font-medium  ${id !== 'the-idea' ? 'text-neutral-400 text-xl leading-relaxed' : 'text-neutral-500 text-md leading-snug'}`}
+          >
             {content}
           </p>
 
           {bullets && (
-            <ul className="space-y-5">
+            <ul className="space-y-2">
               {bullets.map((item, i) => (
                 <li
                   key={i}
-                  className="group/li flex items-start gap-4 text-neutral-300 hover:text-white transition-colors"
+                  className="group/li flex items-start gap-2 text-neutral-500 transition-colors"
                 >
-                  <div className="mt-2.5">
-                    <ChevronRight className="w-3.5 h-3.5 text-indigo-500 transition-transform group-hover/li:translate-x-1" />
-                  </div>
-                  <span className="text-lg leading-snug">{item}</span>
+                  •<span className="text-md leading-snug">{item}</span>
                 </li>
               ))}
             </ul>
