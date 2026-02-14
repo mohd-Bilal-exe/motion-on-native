@@ -2,6 +2,10 @@
 
 Framer Motion–inspired animations for React Native built on Reanimated.
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mohd-Bilal-exe/motion-on-native&type=date&legend=top-left)](https://www.star-history.com/#mohd-Bilal-exe/motion-on-native&type=date&legend=top-left)
+
 ## Installation
 
 ```bash
