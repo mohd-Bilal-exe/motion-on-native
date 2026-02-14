@@ -66,25 +66,21 @@ import { NativeMotion, AnimatedExit } from 'motion-on-native';
 - `NativeMotion.ImageBackground`
 - `NativeMotion.TextInput`
 - `NativeMotion.TouchableOpacity`
-- `NativeMotion.ScrollView`
-- `NativeMotion.FlatList`
-- `NativeMotion.SectionList`
 - `NativeMotion.Pressable`
 
-## AnimatedExit
+## AnimatedExit - BETA
 
 Enables exit animations for components being removed from the tree.
 
 ### Props
 
 - `mode`: 'sync' | 'wait' - Animation mode (default: 'sync')
-- `onExitComplete`: () => void - Callback when all exit animations complete
 
 ### Important Notes
 
-- Each child must have a unique `key` prop
+- Each child must have a unique `animationId` prop
 - Only direct children with `exit` prop will animate out
-- Component unmounts after exit animation completes
+- Component unmounts after exit animation completes, though currently there is a slight delay in removal after animation completion.
 
 ## Component Props
 
