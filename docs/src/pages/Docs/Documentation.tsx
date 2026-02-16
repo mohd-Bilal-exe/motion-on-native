@@ -8,6 +8,7 @@ import MotionComponents from './pages/MotionComponents';
 import MotionProps from './pages/MotionProps';
 import AniamtionBehaviour from './pages/AnimationBehaviour';
 import TypesDocs from './pages/TypesDocs';
+import MentalModel from './pages/MentalModel';
 export default function Documentation() {
   return (
     <div className="flex bg-black-950 w-svw min-h-[calc(100svh-80px)]">
@@ -21,7 +22,7 @@ export default function Documentation() {
         <Route path="/core/animation-props" element={<MotionProps />} />
         <Route path="/core/animation-behaviour" element={<AniamtionBehaviour />} />
         <Route path="/core/types" element={<TypesDocs />} />
-        <Route path="*" element={<h1 className="text-amber-100">Examples</h1>} />
+        <Route path="*" element={<MentalModel />} />
       </Routes>
     </div>
   );
