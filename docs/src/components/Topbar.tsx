@@ -14,6 +14,7 @@ export default function Topbar() {
       navigate(redirectTo);
     }
   };
+  console.log(isMobile, 'is Mobile');
   return (
     <section id="Nav" className="top-0 left-0 z-1 fixed flex justify-center items-center w-full">
       <motion.nav
@@ -30,11 +31,11 @@ export default function Topbar() {
           marginTop: isMobile ? 0 : isHome ? 10 : 0,
           borderWidth: isHome ? '2px 2px' : '0px 0px 2px 0px',
         }}
-        className={`flex ${!isHome && isMobile ? 'flex-col' : 'md:flex-row'} justify-between items-center bg-white-200/5 backdrop-blur-sm px-[0.5%] py-2 border-accent-blue/5 rounded-full overflow-hidden `}
+        className={`flex md:flex-row flex-col justify-between items-center bg-white-200/5 backdrop-blur-sm px-[0.5%] py-2 border-accent-blue/5 rounded-full overflow-hidden ${isHome ? 'flex-row' : ''}`}
       >
         <button
           onClick={() => redirectToPath('/')}
-          className={`flex justify-center items-center gap-2  px-2  rounded-full     text-xl cursor-pointer group w-full`}
+          className={`flex  md:justify-start justify-center items-center gap-2  px-2  rounded-full     text-xl cursor-pointer group  w-full md:w-1/2`}
         >
           <Logo className="-mb-0.5 size-9 group-active:scale-95 group-hover:scale-[110%] transition-all duration-300 ease-in-out text-accent-blue" />
           <span className="ml-2 text-xl"> Motion On Native</span>
@@ -68,7 +69,7 @@ export default function Topbar() {
                 damping: 30,
                 delay: 0.3,
               }}
-              className="flex justify-center gap-3 mt-1.5 md:mt-0 w-full"
+              className="flex justify-center md:justify-end gap-3 mt-1.5 md:mt-0 w-full md:w-1/2"
             >
               <button
                 onClick={() => redirectToPath('https://github.com/mohd-Bilal-exe/motion-on-native')}

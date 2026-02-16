@@ -47,7 +47,7 @@ const sections: SidebarSection[] = [
 
 export default function Sidebar() {
   const { pathname } = useLocation();
-  const { isMobile } = useResponsive();
+  const isMobile = useResponsive();
   const [isOpen, setIsOpen] = useState(false);
 
   if (isMobile) {
