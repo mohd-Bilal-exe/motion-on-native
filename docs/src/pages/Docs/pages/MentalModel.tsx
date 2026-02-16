@@ -1,4 +1,4 @@
-import { Brain, Cpu, Activity, AlertTriangle, Layers, Code2 } from 'lucide-react';
+import { Brain, Cpu, Activity, AlertTriangle, Layers, Code2, Sparkles } from 'lucide-react';
 import DocNavButtons from '../../../components/DocNavButtons';
 
 export default function MentalModel() {
@@ -15,16 +15,53 @@ export default function MentalModel() {
             The Mental Model
           </h1>
           <p className="max-w-2xl text-neutral-400 text-xl leading-relaxed">
-            Most libraries try to hide the complexity. We'd rather show you the engine. Here is how
-            your declarative props become 60FPS native motion.
+            Not sugar coating or trying to hide the complexity. Here is exactly how your props
+            becomes animation.
           </p>
         </header>
+        <section className="relative bg-yellow-500/5 p-8 lg:p-12 border border-yellow-500/20 rounded-3xl overflow-hidden">
+          <div className="-top-20 -left-20 absolute bg-yellow-500/10 blur-[80px] rounded-full w-64 h-64" />
 
+          <div className="relative flex flex-col gap-6">
+            <div className="flex items-center gap-3">
+              <div className="flex justify-center items-center bg-yellow-950/50 border border-yellow-500/30 rounded-xl w-10 h-10">
+                <Sparkles className="w-5 h-5 text-yellow-400" />
+              </div>
+              <h3 className="font-bold text-white text-2xl tracking-tight">I'm Still Cookin'</h3>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <p className="max-w-3xl text-neutral-300 text-xl leading-relaxed">
+                I’m still diving deep into the internals of Reanimated and React Native. This
+                library is as much a learning journey for me as it is a tool for you.
+              </p>
+
+              <p className="max-w-2xl text-neutral-400 text-lg">
+                The current <span className="font-semibold">"Shared Value Factory"</span> approach
+                works, but it's just the beginning. I'm actively looking into more aggressive
+                optimizations—like <span className="font-bold">dynamic value injection </span>
+                and <span className="font-bold">proxy-based tracking</span> — to cut down the memory
+                footprint without losing that clean declarative API.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4 mt-4">
+              <div className="flex items-center gap-2 bg-neutral-900/50 px-4 py-2 border border-neutral-800 rounded-full text-neutral-400 text-sm">
+                <div className="bg-yellow-500 rounded-full w-1.5 h-1.5 animate-pulse" />
+                Shared Value Refinement
+              </div>
+              <div className="flex items-center gap-2 bg-neutral-900/50 px-4 py-2 border border-neutral-800 rounded-full text-neutral-400 text-sm">
+                <div className="bg-amber-500 rounded-full w-1.5 h-1.5 animate-pulse" />
+                Layout Transition Research
+              </div>
+            </div>
+          </div>
+        </section>
         {/* The Factory Logic */}
         <section className="flex flex-col gap-8">
           <div className="flex items-center gap-4">
             <div className="flex justify-center items-center bg-neutral-900 border border-neutral-800 rounded-xl w-10 h-10">
-              <Layers className="w-5 h-5 text-blue-400" />
+              <Layers className="w-5 h-5 text-accent-blue" />
             </div>
             <h2 className="font-bold text-white text-3xl tracking-tight">
               The Shared Value Registry
