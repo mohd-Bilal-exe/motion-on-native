@@ -71,7 +71,7 @@ export default function Topbar() {
                 <span>Github</span>
               </button>
               <button
-                onClick={() => redirectToPath('https://buymeacoffee.com/mohammad.bilal')}
+                onClick={() => redirectToPath('https://buymeacoffee.com/mohammad.bilal.exe')}
                 className="flex justify-center items-center gap-1 bg-transparent hover:bg-white-200 px-4 rounded-full text-md text-white-200/30 hover:text-black-850 transition-all ease-in-out cursor-pointer"
               >
                 <Coffee className="size-4" />
