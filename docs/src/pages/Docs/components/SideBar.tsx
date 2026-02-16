@@ -55,7 +55,7 @@ export default function Sidebar() {
       <>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="top-16 right-4 z-1000 fixed bg-white/10 hover:bg-white/20 p-2 border border-white/10 rounded-lg transition-all"
+          className="top-24 right-4 z-100 fixed bg-white/10 hover:bg-white/20 p-2 border border-white/10 rounded-lg transition-all"
         >
           {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
@@ -65,7 +65,7 @@ export default function Sidebar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="z-40 fixed inset-0 bg-black/95 backdrop-blur-xl px-6 py-20 overflow-y-auto text-sm"
+              className="z-50 fixed inset-0 bg-black-900 backdrop-blur-xl px-6 md:py-20 pt-24 overflow-y-auto text-sm"
             >
               <nav className="space-y-1 mb-10">
                 {topNav.map(item => {

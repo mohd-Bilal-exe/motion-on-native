@@ -51,24 +51,24 @@ export default function InteractivePlayground() {
   };
 
   return (
-    <section className="z-100 mx-auto px-6 py-24 w-full max-w-7xl">
+    <section className="z-100 mx-auto px-4 sm:px-6 py-16 sm:py-24 w-full max-w-7xl">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-2">
-          <h2 className="font-bold text-3xl tracking-tight space-grotesk">
+          <h2 className="font-bold text-2xl sm:text-3xl tracking-tight space-grotesk">
             Interactive Playground
           </h2>
-          <p className="max-w-xl text-white/40">
+          <p className="max-w-xl text-white/40 text-sm sm:text-base">
             Get the gist of Motion on Native. Real-time spring physics powered by Reanimated.
           </p>
         </div>
 
         {/* Tabs Navigation */}
-        <div className="flex flex-wrap gap-2 bg-white-200/5 p-1.5 border border-white/10 rounded-2xl w-fit">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 bg-white-200/5 p-1.5 border border-white/10 rounded-2xl w-full sm:w-fit overflow-x-auto">
           {TABS.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab as Tab)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${
+              className={`px-3 sm:px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all uppercase tracking-widest whitespace-nowrap ${
                 activeTab === tab
                   ? 'bg-accent-blue text-white-200 shadow-lg'
                   : 'text-white/40 hover:text-white-200 hover:bg-white-200/5'
@@ -81,7 +81,7 @@ export default function InteractivePlayground() {
 
         <div className="gap-6 grid grid-cols-1 lg:grid-cols-12">
           {/* Preview Canvas */}
-          <div className="group relative flex flex-col justify-center items-center lg:col-span-7 bg-white-200/5 backdrop-blur-xl border border-white/10 rounded-4xl h-full overflow-hidden">
+          <div className="group relative flex flex-col justify-center items-center lg:col-span-7 bg-white-200/5 backdrop-blur-xl border border-white/10 rounded-4xl min-h-100 sm:min-h-125 overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] via-transparent to-transparent from-accent-blue/5" />
 
             <AnimatePresence mode="wait">
@@ -135,9 +135,9 @@ export default function InteractivePlayground() {
             </AnimatePresence>
 
             {/* Contextual Controls based on Tab */}
-            <div className="bottom-8 absolute flex flex-col gap-4 px-10 w-full">
+            <div className="bottom-4 sm:bottom-8 absolute flex flex-col gap-4 px-4 sm:px-10 w-full">
               {activeTab === 'transform' && (
-                <div className="flex items-end gap-4">
+                <div className="flex sm:flex-row flex-col items-stretch sm:items-end gap-3 sm:gap-4">
                   <div className="flex flex-col flex-1 gap-2">
                     <div className="flex justify-between font-mono text-[10px] text-white/40 uppercase">
                       <span>{transformState.prop}</span>
@@ -154,11 +154,11 @@ export default function InteractivePlayground() {
                       className="w-full accent-accent-blue"
                     />
                   </div>
-                  <div className="group/select relative">
+                  <div className="group/select relative w-full sm:w-auto">
                     <select
                       value={transformState.prop}
                       onChange={e => setTransformState({ prop: e.target.value, value: 0 })}
-                      className="bg-white/10 hover:bg-white/20 px-4 py-2 pr-10 border border-white/10 rounded-xl outline-none font-bold text-white text-xs appearance-none cursor-pointer"
+                      className="bg-white/10 hover:bg-white/20 px-4 py-2 pr-10 border border-white/10 rounded-xl outline-none w-full font-bold text-white text-xs appearance-none cursor-pointer"
                     >
                       <option value="translateX" className="bg-[#0D0D0D]">
                         Translate X
@@ -182,7 +182,7 @@ export default function InteractivePlayground() {
               )}
               {activeTab === 'layout' && (
                 <div className="flex flex-col gap-4 px-1 w-full">
-                  <div className="flex items-end gap-4">
+                  <div className="flex sm:flex-row flex-col items-stretch sm:items-end gap-3 sm:gap-4">
                     {/* Property Slider */}
                     <div className="flex flex-col flex-1 gap-2">
                       <div className="flex justify-between font-mono text-[10px] text-white/40 uppercase tracking-widest">
@@ -205,7 +205,7 @@ export default function InteractivePlayground() {
                       />
                     </div>
 
-                    <div className="group/select relative">
+                    <div className="group/select relative w-full sm:w-auto">
                       <select
                         value={layoutState.prop}
                         onChange={e => {
@@ -214,7 +214,7 @@ export default function InteractivePlayground() {
                             val === 'scale' ? 1 : val === 'borderRadius' ? 24 : 128;
                           setLayoutState({ prop: val, value: defaultValue });
                         }}
-                        className="bg-white/10 hover:bg-white/20 px-4 py-2 pr-10 border border-white/10 rounded-xl outline-none min-w-35 font-bold text-white text-xs appearance-none cursor-pointer"
+                        className="bg-white/10 hover:bg-white/20 px-4 py-2 pr-10 border border-white/10 rounded-xl outline-none w-full font-bold text-white text-xs appearance-none cursor-pointer"
                       >
                         <optgroup label="Dimensions" className="bg-[#0D0D0D]">
                           <option value="width">Width</option>
@@ -230,7 +230,7 @@ export default function InteractivePlayground() {
                     </div>
                   </div>
 
-                  <p className="text-[10px] text-white/20 italic">
+                  <p className="text-[9px] text-white/20 sm:text-[10px] italic">
                     * Animating layout properties on Native triggers UI thread layout passes via
                     Reanimated.
                   </p>
@@ -239,27 +239,27 @@ export default function InteractivePlayground() {
               {activeTab === 'entry-exit' && (
                 <button
                   onClick={() => setIsMounted(!isMounted)}
-                  className="bg-white/10 hover:bg-white/20 py-3 border border-white/10 rounded-2xl w-full font-bold text-xs uppercase tracking-[0.2em] transition-all"
+                  className="bg-white/10 hover:bg-white/20 py-2.5 sm:py-3 border border-white/10 rounded-2xl w-full font-bold text-[10px] sm:text-xs uppercase tracking-[0.2em] transition-all"
                 >
                   {isMounted ? 'Unmount Component' : 'Mount Component'}
                 </button>
               )}
               {activeTab === 'color' && (
                 <div className="flex flex-col gap-2">
-                  <span className="font-mono text-[10px] text-white/40 uppercase">
+                  <span className="font-mono text-[9px] text-white/40 sm:text-[10px] uppercase">
                     Pick Interpolation Target{' '}
                   </span>
-                  <div className="flex gap-3">
+                  <div className="flex gap-2 sm:gap-3">
                     {COLORS.map(c => (
                       <button
                         key={c}
                         onClick={() => setColorValue(c)}
-                        className="border-2 border-white/10 rounded-full size-8 active:scale-90 transition-transform"
+                        className="border-2 border-white/10 rounded-full size-7 sm:size-8 active:scale-90 transition-transform"
                         style={{ backgroundColor: c }}
                       />
                     ))}
                   </div>
-                  <span className="mt-2 font-mono text-[9px] text-white/40 italics">
+                  <span className="mt-2 font-mono text-[8px] text-white/40 sm:text-[9px] italics">
                     *Interpolation of colors are simulated through web api Native results mayn vary.
                   </span>
                 </div>
@@ -275,7 +275,7 @@ export default function InteractivePlayground() {
                 setMass(1);
                 setIsMounted(true);
               }}
-              className="top-6 right-8 absolute bg-white/5 hover:bg-white/10 p-2 rounded-full text-white/40 transition-all"
+              className="top-4 sm:top-6 right-4 sm:right-8 absolute bg-white/5 hover:bg-white/10 p-2 rounded-full text-white/40 transition-all"
             >
               <RotateCcw className="size-4" />
             </button>
@@ -283,15 +283,15 @@ export default function InteractivePlayground() {
 
           {/* Controls & Code */}
           <div className="flex flex-col gap-6 lg:col-span-5">
-            <div className="space-y-6 bg-white-200/5 p-8 border border-white/10 rounded-4xl">
+            <div className="space-y-6 bg-white-200/5 p-4 sm:p-8 border border-white/10 rounded-4xl">
               <div className="flex items-center gap-2 mb-2">
-                <Settings2 className="size-4 text-accent-blue" />
-                <span className="font-bold text-white/60 text-xs uppercase tracking-widest">
+                <Settings2 className="size-3.5 sm:size-4 text-accent-blue" />
+                <span className="font-bold text-[10px] text-white/60 sm:text-xs uppercase tracking-widest">
                   Physics
                 </span>
               </div>
               {activeTab === 'color' ? (
-                <span className="mt-2 font-mono text-white/40 text-sm italics">
+                <span className="mt-2 font-mono text-white/40 text-xs sm:text-sm italics">
                   Spring physics is diabled in colors for better transitional behaviour.
                 </span>
               ) : (
@@ -316,32 +316,34 @@ export default function InteractivePlayground() {
               )}
             </div>
 
-            <div className="group relative bg-white-200/5 p-6 border border-white/10 rounded-4xl">
+            <div className="group relative bg-white-200/5 p-4 sm:p-6 border border-white/10 rounded-4xl">
               <div className="flex justify-between items-center mb-4">
                 <div className="flex items-center gap-2 text-white/40">
-                  <Code className="size-4" />
-                  <span className="font-bold text-[10px] uppercase tracking-widest">Usage</span>
+                  <Code className="size-3.5 sm:size-4" />
+                  <span className="font-bold text-[9px] sm:text-[10px] uppercase tracking-widest">
+                    Usage
+                  </span>
                 </div>
                 <button
                   onClick={copyToClipboard}
-                  className="bg-white/5 hover:bg-white/10 p-2 rounded-lg text-white/60 transition-all"
+                  className="bg-white/5 hover:bg-white/10 p-1.5 sm:p-2 rounded-lg text-white/60 transition-all"
                 >
                   {copied ? (
-                    <Check className="size-4 text-green-400" />
+                    <Check className="size-3.5 sm:size-4 text-green-400" />
                   ) : (
-                    <Copy className="size-4" />
+                    <Copy className="size-3.5 sm:size-4" />
                   )}
                 </button>
               </div>
-              <pre className="overflow-x-auto font-mono text-[13px] leading-relaxed text-accent-blue">
+              <pre className="overflow-x-auto font-mono text-[11px] sm:text-[13px] leading-relaxed text-accent-blue">
                 <SyntaxHighlighter
                   language="tsx"
                   style={gruvboxDark}
                   customStyle={{
                     background: 'rgba(0, 0, 0, 0.5)',
                     borderRadius: '16px',
-                    padding: '20px',
-                    fontSize: '13px',
+                    padding: '12px',
+                    fontSize: '11px',
                     lineHeight: '1.6',
                     margin: 0,
                   }}
@@ -362,7 +364,7 @@ export default function InteractivePlayground() {
 function Slider({ label, value, min, max, step = 1, onChange }: any) {
   return (
     <div className="space-y-2">
-      <div className="flex justify-between font-mono text-[11px]">
+      <div className="flex justify-between font-mono text-[10px] sm:text-[11px]">
         <span className="text-white/30 uppercase">{label}</span>
         <span className="text-white">{value}</span>
       </div>

@@ -2,11 +2,13 @@ import React from 'react';
 import { Flame, Zap, Lightbulb } from 'lucide-react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { useResponsive } from '../../../hooks/useResponsive';
 
 export default function Overview() {
+  const isMobile = useResponsive();
   return (
     <div className="w-full h-[calc(100svh-80px)] overflow-y-auto selection:bg-accent-blue/30 scroll-smooth">
-      <div className="relative flex flex-col gap-32 mx-auto px-6 py-20 lg:py-32 max-w-5xl">
+      <div className="relative flex flex-col gap-10 md:gap-28 mx-auto px-6 py-20 lg:py-32 max-w-5xl">
         <Section
           id="the-pain"
           heading="The Pain"
@@ -38,7 +40,6 @@ export default function Overview() {
           content="What if animations were just... props? Describe where the view should be, and let Motion on Native figure out the interpolation. No shared values, no manual wiring, no headaches."
         >
           <div className="group relative mt-4">
-            <div className="absolute -inset-1 bg-linear-to-r from-indigo-500 to-purple-600 opacity-20 group-hover:opacity-40 blur-xl transition duration-1000" />
             <div className="relative bg-[#0d0d0d] shadow-2xl backdrop-blur-sm border border-neutral-800 rounded-2xl font-mono text-lg leading-relaxed">
               <SyntaxHighlighter
                 language="tsx"
@@ -47,7 +48,7 @@ export default function Overview() {
                   background: 'rgba(0, 0, 0, 0.5)',
                   borderRadius: '16px',
                   padding: '20px',
-                  fontSize: '13px',
+                  fontSize: isMobile ? '10px' : '17px',
                   lineHeight: '1.6',
                   margin: 0,
                 }}
@@ -81,7 +82,7 @@ function Section({
   return (
     <section id={id} className="group relative flex flex-col gap-4 scroll-mt-32">
       <div className="flex items-center gap-4">
-        <h2 className="bg-clip-text bg-linear-to-br from-55% from-white to-neutral-300 font-bold text-transparent text-4xl tracking-tight">
+        <h2 className="bg-clip-text bg-linear-to-br from-55% from-white to-neutral-300 font-bold text-transparent text-2xl md:text-4xl tracking-tight">
           {heading}
         </h2>
       </div>
@@ -89,7 +90,7 @@ function Section({
       <div className="flex md:flex-row flex-col gap-12">
         <div className="flex flex-col flex-1 gap-8">
           <p
-            className={`max-w-2xl font-medium  ${id !== 'the-idea' ? 'text-neutral-400 text-xl leading-relaxed' : 'text-neutral-500 text-md leading-snug'}`}
+            className={`max-w-2xl font-medium text-sm  ${id !== 'the-idea' ? 'text-neutral-400 md:text-xl leading-relaxed' : 'text-neutral-500 md:text-md leading-snug'}`}
           >
             {content}
           </p>
@@ -101,7 +102,7 @@ function Section({
                   key={i}
                   className="group/li flex items-start gap-2 text-neutral-500 transition-colors"
                 >
-                  •<span className="text-md leading-snug">{item}</span>
+                  •<span className="md:text-md text-sm leading-snug">{item}</span>
                 </li>
               ))}
             </ul>

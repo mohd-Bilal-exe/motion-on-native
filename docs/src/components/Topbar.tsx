@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { BookOpenText, Coffee, Github } from 'lucide-react';
+import { useResponsive } from '../hooks/useResponsive';
 export default function Topbar() {
+  const isMobile = useResponsive();
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -13,21 +15,26 @@ export default function Topbar() {
     }
   };
   return (
-    <section id="Nav" className="top-0 left-0 z-100 fixed flex justify-center items-center w-full">
+    <section id="Nav" className="top-0 left-0 z-1 fixed flex justify-center items-center w-full">
       <motion.nav
-        initial={{ y: -100, width: '50%', borderRadius: 'calc(infinity * 1px)', marginTop: 5 }}
+        initial={{
+          y: -100,
+          width: isMobile ? '100%' : '50%',
+          borderRadius: 'calc(infinity * 1px)',
+          marginTop: 5,
+        }}
         animate={{
           y: 0,
-          width: isHome ? '50%' : '100%',
-          borderRadius: isHome ? 'calc(infinity * 1px)' : 0,
-          marginTop: isHome ? 10 : 0,
+          width: isMobile ? '100%' : isHome ? '50%' : '100%',
+          borderRadius: isMobile ? 0 : isHome ? 'calc(infinity * 1px)' : 0,
+          marginTop: isMobile ? 0 : isHome ? 10 : 0,
           borderWidth: isHome ? '2px 2px' : '0px 0px 2px 0px',
         }}
-        className="flex justify-between items-center bg-white-200/5 backdrop-blur-sm px-[0.5%] py-2 border-accent-blue/5 rounded-full overflow-hidden"
+        className={`flex ${!isHome && isMobile ? 'flex-col' : 'md:flex-row'} justify-between items-center bg-white-200/5 backdrop-blur-sm px-[0.5%] py-2 border-accent-blue/5 rounded-full overflow-hidden `}
       >
         <button
           onClick={() => redirectToPath('/')}
-          className={`flex justify-center items-center gap-2  px-2  rounded-full     text-xl cursor-pointer group`}
+          className={`flex justify-center items-center gap-2  px-2  rounded-full     text-xl cursor-pointer group w-full`}
         >
           <Logo className="-mb-0.5 size-9 group-active:scale-95 group-hover:scale-[110%] transition-all duration-300 ease-in-out text-accent-blue" />
           <span className="ml-2 text-xl"> Motion On Native</span>
@@ -61,7 +68,7 @@ export default function Topbar() {
                 damping: 30,
                 delay: 0.3,
               }}
-              className="flex gap-3"
+              className="flex justify-center gap-3 mt-1.5 md:mt-0 w-full"
             >
               <button
                 onClick={() => redirectToPath('https://github.com/mohd-Bilal-exe/motion-on-native')}

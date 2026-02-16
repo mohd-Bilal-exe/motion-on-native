@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 export default function Hero() {
   const navigate = useNavigate();
   return (
-    <section className="relative flex flex-col justify-center items-center px-6 pt-40 pb-20 w-full overflow-hidden text-center space-grotesk">
+    <section className="relative flex flex-col justify-center items-center px-6 pt-5 md:pt-40 pb-20 w-full overflow-hidden text-center space-grotesk">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -44,7 +44,7 @@ export default function Hero() {
       >
         <button
           onClick={() => navigate('/docs')}
-          className="flex items-center gap-2 bg-white px-8 py-4 rounded-full font-bold text-black hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-white px-3 md:px-8 py-1 md:py-4 rounded-full font-bold text-black hover:scale-105 active:scale-95 transition-all cursor-pointer"
         >
           Get Started <ChevronRight className="size-5" />
         </button>
@@ -52,7 +52,7 @@ export default function Hero() {
           onClick={() =>
             window.open('https://github.com/mohd-Bilal-exe/motion-on-native', '_blank')
           }
-          className="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-8 py-4 border border-white/10 rounded-full font-bold transition-all cursor-pointer"
+          className="flex items-center gap-2 bg-white/5 hover:bg-white/10 px-3 md:px-8 py-1 md:py-4 border border-white/10 rounded-full font-bold transition-all cursor-pointer"
         >
           <Code2 className="size-5" /> View Code
         </button>

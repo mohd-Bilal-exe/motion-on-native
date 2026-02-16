@@ -6,10 +6,10 @@ export default function ImportantMentions() {
     <div className="selection:bg-indigo-500/30 px-[6svw] py-[10svh] w-full min-h-[calc(100svh-80px)] overflow-y-auto">
       <div className="mx-auto max-w-5xl">
         <header className="mb-16">
-          <h2 className="bg-clip-text bg-linear-to-r from-white to-neutral-400 py-2 font-bold text-transparent text-5xl tracking-tighter">
+          <h2 className="bg-clip-text bg-linear-to-r from-white to-neutral-400 py-2 font-bold text-transparent text-2xl md:text-5xl tracking-tighter">
             Standing on Shoulders
           </h2>
-          <p className="mt-4 max-w-2xl text-neutral-400 text-xl leading-relaxed">
+          <p className="mt-4 max-w-2xl text-md text-neutral-400 md:text-xl leading-relaxed">
             I didn't reinvent the wheel-I just made sure it fits React Native. This library is the
             love child of two industry giants.
           </p>
@@ -34,12 +34,12 @@ export default function ImportantMentions() {
           />
         </div>
 
-        <footer className="flex flex-col items-center bg-neutral-800/10 mt-24 p-12 border border-neutral-800 rounded-3xl text-center">
+        <footer className="flex flex-col items-center bg-neutral-800/10 mt-24 p-8 md:p-12 border border-neutral-800 rounded-3xl text-center">
           <div className="bg-neutral-800/50 mb-6 p-4 border border-neutral-700 rounded-full">
             <Heart className="fill-red-500 w-6 h-6 text-red-500" />
           </div>
           <h3 className="font-bold text-white text-2xl tracking-tight">Open Source</h3>
-          <p className="mt-3 max-w-md text-neutral-400 text-lg">
+          <p className="mt-3 max-w-md text-md text-neutral-400 md:text-lg">
             Built for devs (majorly myself) who want web-level simplicity without sacrificing
             mobile-level performance.
           </p>
@@ -85,8 +85,8 @@ function MentionCard({
           <ExternalLink className="w-5 h-5 text-neutral-600 group-hover:text-white transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </div>
 
-        <h3 className="mb-4 font-bold text-white text-2xl tracking-tight">{title}</h3>
-        <p className="mb-8 text-neutral-400 text-lg leading-relaxed">{description}</p>
+        <h3 className="mb-4 font-bold text-white text-xl md:text-2xl tracking-tight">{title}</h3>
+        <p className="mb-8 text-md text-neutral-400 md:text-lg leading-relaxed">{description}</p>
       </div>
 
       <div className="z-10 relative flex flex-wrap gap-2">
