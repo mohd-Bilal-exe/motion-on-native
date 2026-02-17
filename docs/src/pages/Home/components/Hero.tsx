@@ -15,7 +15,7 @@ export default function Hero() {
           <span className="inline-flex absolute opacity-75 rounded-full w-full h-full animate-ping bg-accent-blue"></span>
           <span className="inline-flex relative rounded-full w-2 h-2 bg-accent-blue"></span>
         </span>
-        v1.0.0 is now live
+        v1.5.1 is now live
       </motion.div>
 
       <motion.h1

@@ -77,11 +77,10 @@ export default function Sidebar() {
                       onClick={() => setIsOpen(false)}
                       className={`
                       flex items-center gap-3 rounded-lg px-3 py-2 transition
-                      ${
-                        active
+                      ${active
                           ? 'bg-black/5 text-white-200 font-medium'
                           : 'text-white-200/60 hover:bg-black/5 hover:text-white-200/80'
-                      }
+                        }
                     `}
                     >
                       <span className="opacity-70">{item.icon}</span>
@@ -97,11 +96,10 @@ export default function Sidebar() {
                   return (
                     <div key={section.label}>
                       <div
-                        className={`mb-3 text-[11px] uppercase tracking-wide ${
-                          activeLabel
+                        className={`mb-3 text-[11px] uppercase tracking-wide ${activeLabel
                             ? 'text-accent-blue font-bold'
                             : 'text-white-200/60 font-semibold'
-                        } transition-all duration-300`}
+                          } transition-all duration-300`}
                       >
                         {section.label}
                       </div>
@@ -135,7 +133,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="relative px-6 py-8 min-w-[16svw] text-sm">
+    <aside className="relative px-6 py-8 min-w-[16svw] h-[calc(100svh-80px)] overflow-y-auto text-sm">
       <div className="right-0 absolute inset-y-1/2 bg-radial from-30% from-white-200/20 to-90% to-transparent w-px h-1/2 -translate-y-1/2 pointer-events-none"></div>
       {/* Top icon navigation */}
       <nav className="space-y-1 mb-10">
@@ -148,10 +146,9 @@ export default function Sidebar() {
               to={item.path}
               className={`
                 flex items-center gap-3 rounded-lg px-2 py-2 transition
-                ${
-                  active
-                    ? 'bg-black/5 text-white-200 font-medium'
-                    : 'text-white-200/60 hover:bg-black/5 hover:text-white-200/80'
+                ${active
+                  ? 'bg-black/5 text-white-200 font-medium'
+                  : 'text-white-200/60 hover:bg-black/5 hover:text-white-200/80'
                 }
               `}
             >
@@ -169,9 +166,8 @@ export default function Sidebar() {
           return (
             <div key={section.label}>
               <div
-                className={`mb-3  text-[11px]  uppercase tracking-wide ${
-                  activeLabel ? 'text-accent-blue font-bold' : ' text-white-200/80 font-semibold'
-                } transition-all duration-300`}
+                className={`mb-3  text-[11px]  uppercase tracking-wide ${activeLabel ? 'text-accent-blue font-bold' : ' text-white-200/80 font-semibold'
+                  } transition-all duration-300`}
               >
                 {section.label}
               </div>

@@ -155,8 +155,15 @@ function CodeWindow({ code, title }: { code: string; title: string }) {
 
   return (
     <div className="group relative flex flex-col bg-[#0d0d0d] shadow-2xl border border-neutral-800 rounded-2xl overflow-hidden">
-      <div className="flex justify-between items-center bg-neutral-900/50 px-4 py-3 border-neutral-800 border-b">
-        <span className="font-mono text-neutral-500 text-sm">{title}</span>
+      <div className="flex justify-between items-center bg-white/5 px-4 py-3 border-b border-white/5">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 bg-red-500 rounded-full" />
+            <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+            <div className="w-3 h-3 bg-green-500 rounded-full" />
+          </div>
+          <span className="font-mono text-neutral-500 text-sm">{title}</span>
+        </div>
         <button onClick={copy} className="text-neutral-500 hover:text-white transition-colors">
           {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
         </button>

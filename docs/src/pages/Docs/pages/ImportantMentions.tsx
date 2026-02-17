@@ -3,7 +3,7 @@ import { ExternalLink, Cpu, Heart, HeartHandshake } from 'lucide-react';
 
 export default function ImportantMentions() {
   return (
-    <div className="selection:bg-indigo-500/30 px-[6svw] py-[10svh] w-full min-h-[calc(100svh-80px)] overflow-y-auto">
+    <div className="selection:bg-indigo-500/30 w-full h-[calc(100svh-80px)] overflow-y-auto selection:text-white-200 scroll-smooth px-[6svw] ">
       <div className="mx-auto max-w-5xl">
         <header className="mb-16">
           <h2 className="bg-clip-text bg-linear-to-r from-white to-neutral-400 py-2 font-bold text-transparent text-2xl md:text-5xl tracking-tighter">
