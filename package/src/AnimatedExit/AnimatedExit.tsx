@@ -170,41 +170,35 @@ export default function AnimatedExit({
             : presentChildren === renderedChildren || presentKeys.includes(key);
 
         const onExit = () => {
-          console.log(`[${new Date().toISOString()}] 🔴 onExit called for key: ${key}`);
+          // console.log(`[${new Date().toISOString()}] 🔴 onExit called for key: ${key}`);
 
           if (exitingComponents.current.has(key)) {
-            console.log(`[${new Date().toISOString()}] ⚠️ Already in exitingComponents, returning`);
+            //  console.log(`[${new Date().toISOString()}] ⚠️ Already in exitingComponents, returning`);
             return;
           }
 
-          console.log(`[${new Date().toISOString()}] ✅ Adding ${key} to exitingComponents`);
+          //console.log(`[${new Date().toISOString()}] ✅ Adding ${key} to exitingComponents`);
           exitingComponents.current.add(key);
 
-          console.log(
-            `[${new Date().toISOString()}] 📊 exitComplete.has(${key}): ${exitComplete.has(key)}`
-          );
+          // console.log(`[${new Date().toISOString()}] 📊 exitComplete.has(${key}): ${exitComplete.has(key)}`);
           if (exitComplete.has(key)) {
-            console.log(`[${new Date().toISOString()}] ✅ Setting exitComplete[${key}] = true`);
+            // console.log(`[${new Date().toISOString()}] ✅ Setting exitComplete[${key}] = true`);
             exitComplete.set(key, true);
           } else {
-            console.log(
-              `[${new Date().toISOString()}] ⚠️ exitComplete doesn't have key, returning`
-            );
+            // console.log(`[${new Date().toISOString()}] ⚠️ exitComplete doesn't have key, returning`);
             return;
           }
 
           let isEveryExitComplete = true;
-          console.log(`[${new Date().toISOString()}] 📊 Checking all exitComplete entries:`);
+          // console.log(`[${new Date().toISOString()}] 📊 Checking all exitComplete entries:`);
           exitComplete.forEach((isExitComplete, mapKey) => {
-            console.log(`[${new Date().toISOString()}]   - ${mapKey}: ${isExitComplete}`);
+            //    console.log(`[${new Date().toISOString()}]   - ${mapKey}: ${isExitComplete}`);
             if (!isExitComplete) isEveryExitComplete = false;
           });
 
-          console.log(
-            `[${new Date().toISOString()}] 📊 isEveryExitComplete: ${isEveryExitComplete}`
-          );
+          // console.log(`[${new Date().toISOString()}] 📊 isEveryExitComplete: ${isEveryExitComplete}`);
           if (isEveryExitComplete) {
-            console.log(`[${new Date().toISOString()}] 🎉 All exits complete! Cleaning up...`);
+            //   console.log(`[${new Date().toISOString()}] 🎉 All exits complete! Cleaning up...`);
             forceRender?.();
             setRenderedChildren(pendingPresentChildren.current);
             propagate && safeToRemove?.();
