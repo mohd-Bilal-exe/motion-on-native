@@ -252,7 +252,10 @@ function createMotionComponent<T extends ComponentType<any>>(Component: T) {
           }
         });
       }
-      runOnJS(markPresent)();
+      // Guard markPresent so standalone motion components do not crash
+      if (typeof markPresent === 'function') {
+        runOnJS(markPresent)();
+      }
     }, []);
 
     // Handle shouldAnimate: initial -> animate

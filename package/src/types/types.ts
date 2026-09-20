@@ -100,6 +100,8 @@ export interface MotionComponentProps {
   animationId?: string | number;
   onExitComplete?: () => void;
   isPresent?: boolean;
+  exitComplete?: Map<any, any>;
+  markPresent?: () => void;
 }
 
 export type LayoutEntryAnimation =
