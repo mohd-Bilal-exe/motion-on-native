@@ -68,4 +68,6 @@ const styles = StyleSheet.create({
 - Getting Started: https://motion-on-native.vercel.app/docs/get-started/quick-start
 - Core Components: https://motion-on-native.vercel.app/docs/core/native-motion
 - AnimatedExit Guide: https://motion-on-native.vercel.app/docs/core/animated-exit
-- Exit Animations Deep-Dive Blog: https://motion-on-native.vercel.app/blog/exit-animations-react-native-framer-motion
+- Founder Story ("Why I Built Motion on Native"): https://motion-on-native.vercel.app/blog/why-i-built-motion-on-native
+- Exit Animations Deep-Dive: https://motion-on-native.vercel.app/blog/exit-animations-react-native-framer-motion
+- Migration Guide (Reanimated & Moti to Motion on Native): https://motion-on-native.vercel.app/blog/migrating-to-motion-on-native

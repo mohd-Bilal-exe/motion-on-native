@@ -3,8 +3,15 @@ import { Sparkles, Check, Copy, AlertCircle, Layers, ShieldCheck } from 'lucide-
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import DocNavButtons from '../../../components/DocNavButtons';
+import { useMeta } from '../../../hooks/useMeta';
 
 export default function AnimatedExitDoc() {
+  useMeta({
+    title: 'AnimatedExit (Exit Animations) - Core Components',
+    description:
+      "Direct port of Framer Motion's AnimatePresence for React Native. Keep components alive during Reanimated UI-thread exit transitions.",
+    canonical: 'https://motion-on-native.vercel.app/docs/core/animated-exit',
+  });
   const basicExample = `import React, { useState } from 'react';
 import { Button, Text, StyleSheet } from 'react-native';
 import { NativeMotion, AnimatedExit } from 'motion-on-native';

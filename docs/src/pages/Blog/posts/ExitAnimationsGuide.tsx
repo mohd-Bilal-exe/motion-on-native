@@ -4,9 +4,17 @@ import { ArrowLeft, Check, Copy, Calendar, Clock, Sparkles, AlertCircle } from '
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { androidstudio } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { Footer } from '../../../components/Footer';
+import { useMeta } from '../../../hooks/useMeta';
 
 export default function ExitAnimationsGuide() {
   const navigate = useNavigate();
+
+  useMeta({
+    title: "Exit Animations in React Native: How to Build Framer Motion's AnimatePresence with Reanimated",
+    description:
+      'Why exit animations are notoriously hard in React Native, how AnimatedExit halts component unmounting until Reanimated UI-thread springs complete, and a breakdown against Moti and raw Reanimated.',
+    canonical: 'https://motion-on-native.vercel.app/blog/exit-animations-react-native-framer-motion',
+  });
 
   const codeToastExample = `import React, { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';

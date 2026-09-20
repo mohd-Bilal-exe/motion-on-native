@@ -4,6 +4,16 @@ import { Footer } from '../../components/Footer';
 
 export const BLOG_POSTS = [
   {
+    slug: 'why-i-built-motion-on-native',
+    title: 'Why I Built Motion on Native: Bringing Framer Motion Joy to Mobile',
+    description:
+      'The developer journey of moving from Web to React Native, hitting the painful wall of Reanimated boilerplate, the breakthrough of the "Shared Value Factory", and reaching 50+ weekly downloads.',
+    date: 'Sep 20, 2026',
+    readTime: '6 min read',
+    category: 'Founder Story',
+    tags: ['React Native', 'Framer Motion', 'Reanimated', 'Open Source'],
+  },
+  {
     slug: 'exit-animations-react-native-framer-motion',
     title: "Exit Animations in React Native: How to Build Framer Motion's AnimatePresence with Reanimated",
     description:
@@ -12,6 +22,16 @@ export const BLOG_POSTS = [
     readTime: '8 min read',
     category: 'Deep Dive',
     tags: ['React Native', 'Exit Animations', 'Reanimated', 'Framer Motion'],
+  },
+  {
+    slug: 'migrating-to-motion-on-native',
+    title: 'Migrating from Raw Reanimated & Moti to Motion on Native',
+    description:
+      'Cut 70% of animation boilerplate from your React Native codebase. A step-by-step guide with before/after diffs for basic transitions, spring physics, and unmount exit handling.',
+    date: 'Sep 20, 2026',
+    readTime: '6 min read',
+    category: 'Migration Guide',
+    tags: ['React Native', 'Reanimated', 'Moti', 'DX'],
   },
 ];
 

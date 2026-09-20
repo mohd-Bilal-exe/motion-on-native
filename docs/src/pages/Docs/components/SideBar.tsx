@@ -47,7 +47,9 @@ const sections: SidebarSection[] = [
   {
     label: 'Guides & Articles',
     items: [
+      { name: 'Why I Built Motion on Native', path: '/blog/why-i-built-motion-on-native' },
       { name: 'Exit Animations Deep Dive', path: '/blog/exit-animations-react-native-framer-motion' },
+      { name: 'Migration Guide (Reanimated/Moti)', path: '/blog/migrating-to-motion-on-native' },
     ],
   },
 ];
