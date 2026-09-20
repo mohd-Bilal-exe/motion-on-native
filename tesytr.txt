@@ -1,0 +1,338 @@
+1 Strange (Stack)
+
+Idea
+This is a stack → Last In First Out (LIFO).
+Think: plates. Last plate placed = first removed.
+
+
+Code
+class Strange {
+    int ele[];
+    int capacity;
+    int top;
+
+    Strange(int cap) {
+        capacity = cap;
+        ele = new int[capacity];
+        top = -1;
+    }
+
+    void pushItem(int value) {
+        if (top == capacity - 1) {
+            System.out.println("Strange is full");
+        } else {
+            top++;
+            ele[top] = value;
+        }
+    }
+
+    int popItem() {
+        if (top == -1) {
+            System.out.println("Strange is empty. Returning -9999");
+            return -9999;
+        } else {
+            int val = ele[top];
+            top--;
+            return val;
+        }
+    }
+}
+
+
+Key logic
+* `top = -1` → empty stack
+* `top++` before inserting
+* `top--` after removing
+
+(b) Name → Stack
+(c) Application → Undo operation, recursion, expression evaluation
+
+
+
+
+2 Repeat (Queue)
+
+Idea
+This is a queue → First In First Out (FIFO)
+Think: line at a ticket counter.
+
+Code
+class Repeat {
+    int str[];
+    int cap;
+    int f, r;
+
+    Repeat(int m) {
+        cap = m;
+        str = new int[cap];
+        f = 0;
+        r = -1;
+    }
+
+    void pushvalue(int v) {
+        if (r == cap - 1) {
+            System.out.println("OVERFLOW");
+        } else {
+            r++;
+            str[r] = v;
+        }
+    }
+
+    int popvalue() {
+        if (f > r) {
+            return -9999;
+        } else {
+            int val = str[f];
+            f++;
+            return val;
+        }
+    }
+
+    void disp() {
+        for (int i = f; i <= r; i++) {
+            System.out.print(str[i] + " ");
+        }
+    }
+}
+
+
+Key logic
+* Insert from rear (r++)
+* Remove from front (f++)
+
+(b) Name → Queue
+(c) Principle → FIFO
+
+3 Linked List Search
+
+Idea
+You traverse node by node until you find the match.
+
+
+Code
+class node {
+    int p;
+    String n;
+    node next;
+}
+class LinkedListSearch {
+    void search(node start, String b) {
+        node temp = start;
+        boolean found = false;
+
+        while (temp != null) {
+            if (temp.n.equals(b)) {
+                System.out.println("Found: " + temp.p + " " + temp.n);
+                found = true;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        if (!found)
+            System.out.println("Not Found");
+    }
+}
+
+
+Key logic
+* `temp = start`
+* Move using `temp = temp.next`
+
+
+4 Add Node at End
+
+Idea
+Go to last node → attach new node.
+
+
+Code
+class Node {
+    int number;
+    Node nextNode;
+}
+class AddNode {
+    void addnode(Node start, int num) {
+        Node newNode = new Node();
+        newNode.number = num;
+        newNode.nextNode = null;
+
+        if (start == null) {
+            start = newNode;
+        } else {
+            Node temp = start;
+            while (temp.nextNode != null) {
+                temp = temp.nextNode;
+            }
+            temp.nextNode = newNode;
+        }
+    }
+}
+
+
+Key logic
+* Traverse till `nextNode == null`
+* Attach there
+
+5 MyArray (Binary Search)
+
+Idea
+Binary search works only on sorted arrays.
+
+
+Code
+class MyArray {
+    int arr[];
+    int n;
+    void displayArray() {
+        for (int i = 0; i < n; i++)
+            System.out.print(arr[i] + " ");
+    }
+    int binarySearch(int value) {
+        int low = 0, high = n - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == value)
+                return mid;
+            else if (arr[mid] < value)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        return -999;
+    }
+}
+
+
+
+
+(b) Descending case
+Reverse condition:
+if (arr[mid] > value)
+    low = mid + 1;
+else
+    high = mid - 1;
+
+
+(c) Failure condition
+Binary search fails if array is not sorted
+
+6 Sort (Bubble + Binary Search)
+
+Idea
+* Bubble sort → repeatedly swap adjacent elements
+* Then apply binary search
+
+
+Code
+import java.util.*;
+class Sort {
+    int arr[] = new int[50];
+    int item;
+
+    void inpdata() {
+        Scanner sc = new Scanner(System.in);
+
+        for (int i = 0; i < 50; i++)
+            arr[i] = sc.nextInt();
+    }
+
+    void bubsort() {
+        for (int i = 0; i < 49; i++) {
+            for (int j = 0; j < 49 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+
+        for (int i = 0; i < 50; i++)
+            System.out.print(arr[i] + " ");
+    }
+
+    void binsearch() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter item: ");
+        item = sc.nextInt();
+
+        int low = 0, high = 49, pos = -1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == item) {
+                pos = mid;
+                break;
+            } else if (arr[mid] < item)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+
+        if (pos != -1)
+            System.out.println("Found at position: " + pos);
+        else
+            System.out.println("Not found");
+    }
+}
+
+
+7 Recursion (Fibonacci)
+
+Idea
+Function calls itself.
+Fibonacci:
+`fib(n) = fib(n-1) + fib(n-2)`
+
+
+Code
+import java.util.*;
+
+class recursion {
+    int a, b, c, limit;
+    recursion() {
+        a = 0;
+        b = 1;
+        c = 0;
+    }
+
+    void input() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter limit: ");
+        limit = sc.nextInt();
+    }
+
+    int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    void generate_fibseries() {
+        for (int i = 0; i < limit; i++) {
+            System.out.print(fib(i) + " ");
+        }
+    }
+}
+
+
+
+
+(b) Why recursion is slow
+
+Because:
+* Repeated calculations (same values again and again)
+* Function call overhead (stack usage)
+
+Final mental shortcut
+
+* Stack → top only → LIFO
+* Queue → front/rear → FIFO
+* Linked list → pointers
+* Binary search → sorted + divide
+* Bubble sort → swap neighbors
+* Recursion → function calling itself

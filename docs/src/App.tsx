@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/Home/Home';
 import Documentation from './pages/Docs/Documentation';
 import Topbar from './components/Topbar';
+import Blog from './pages/Blog/Blog';
+import ExitAnimationsGuide from './pages/Blog/posts/ExitAnimationsGuide';
 
 function App() {
   return (
@@ -11,6 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/docs/*" element={<Documentation />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/exit-animations-react-native-framer-motion" element={<ExitAnimationsGuide />} />
+          <Route path="/blog/*" element={<Blog />} />
         </Routes>
       </section>
     </main>

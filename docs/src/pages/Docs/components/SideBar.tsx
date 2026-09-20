@@ -40,7 +40,14 @@ const sections: SidebarSection[] = [
       { name: 'Motion Components', path: '/docs/core/native-motion' },
       { name: 'Animation Props', path: '/docs/core/animation-props' },
       { name: 'Animation behaviour', path: '/docs/core/animation-behaviour' },
+      { name: 'AnimatedExit (Exit Animations)', path: '/docs/core/animated-exit' },
       { name: 'Types', path: '/docs/core/types' },
+    ],
+  },
+  {
+    label: 'Guides & Articles',
+    items: [
+      { name: 'Exit Animations Deep Dive', path: '/blog/exit-animations-react-native-framer-motion' },
     ],
   },
 ];

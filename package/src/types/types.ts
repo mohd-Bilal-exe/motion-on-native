@@ -83,7 +83,12 @@ export interface MotionComponentProps {
   initial?: AnimationProps | false;
   animate?: AnimationProps;
   exit?: AnimationProps;
-  presenceAnimation: { entring: LayoutEntryAnimation; exiting: LayoutExitAnimation };
+  presenceAnimation?: {
+    entering?: LayoutEntryAnimation;
+    entring?: LayoutEntryAnimation;
+    exiting?: LayoutExitAnimation;
+    [key: string]: any;
+  };
   transition?: TransitionProps;
   whileHover?: AnimationProps; // Future Implementation
   whileTap?: AnimationProps; // Future Implementation

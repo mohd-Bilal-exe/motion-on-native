@@ -179,11 +179,13 @@ It does not aim to fully replicate Motion’s web feature set
 This library adapts core animation concepts and presence-management ideas from
 Motion (formerly Framer Motion), which is licensed under the MIT License.
 
-AnimatedExit is inspired by Motion’s presence system, reimplemented for
+AnimatedExit is adapted from Motion’s presence system, reimplemented for
 React Native using Reanimated.
 
-© Framer B.V.
+Copyright (c) 2018 Framer B.V.
+Copyright (c) 2024 Motion B.V.
+See [THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md) for the full third-party MIT license.
 
 ## License
 
-MIT
+MIT © [Mohammad Bilal](https://github.com/mohd-Bilal-exe)

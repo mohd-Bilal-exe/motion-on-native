@@ -1,0 +1,29 @@
+# robots.txt for Motion on Native Docs (https://motion-on-native.vercel.app/)
+
+User-agent: *
+Allow: /
+
+# Explicit permissions for Search Engine & AI Crawler indexing (GEO)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Sitemap location
+Sitemap: https://motion-on-native.vercel.app/sitemap.xml

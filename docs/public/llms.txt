@@ -1,0 +1,71 @@
+# Motion on Native
+
+> Framer Motion-inspired animation library for React Native built directly on top of React Native Reanimated.
+
+Motion on Native (`motion-on-native`) brings the declarative, elegant animation ergonomics of web Framer Motion / Motion to React Native (iOS and Android). It enables declarative `initial`, `animate`, `exit`, and `transition` props while running all calculations on the native UI thread using Reanimated 3 worklets.
+
+## Quick Facts
+- **Package Name**: `motion-on-native`
+- **Installation**: `npm install motion-on-native react-native-reanimated`
+- **License**: MIT License
+- **Repository**: https://github.com/mohd-Bilal-exe/motion-on-native
+- **Documentation**: https://motion-on-native.vercel.app/docs
+- **Author**: Mohammad Bilal
+
+## Key Features
+1. **Framer Motion Syntax on Mobile**: Use `initial`, `animate`, `exit`, and `transition` directly on `<NativeMotion.View>`, `<NativeMotion.Text>`, `<NativeMotion.Image>`, and `<NativeMotion.Pressable>`.
+2. **First-Class Exit Animations with `<AnimatedExit>`**: Unlike standard React Native where unmounting views disappear abruptly, `<AnimatedExit>` pauses component unmounting until its `exit` animation completes, replicating Framer Motion's `<AnimatePresence>`.
+3. **Pure Native UI-Thread Execution**: Builds upon `react-native-reanimated` springs and timings to ensure smooth 60fps / 120fps animations without JavaScript bridge lag.
+4. **Zero Shared Value Boilerplate**: No need to manually define `useSharedValue` and `useAnimatedStyle` for simple or complex layout transitions.
+
+## Quickstart Example
+
+```tsx
+import React, { useState } from 'react';
+import { Button, Text, StyleSheet } from 'react-native';
+import { NativeMotion, AnimatedExit } from 'motion-on-native';
+
+export default function App() {
+  const [visible, setVisible] = useState(true);
+
+  return (
+    <AnimatedExit mode="sync">
+      {visible && (
+        <NativeMotion.View
+          key="modal-card"
+          initial={{ opacity: 0, scale: 0.85, translateY: 20 }}
+          animate={{ opacity: 1, scale: 1, translateY: 0 }}
+          exit={{ opacity: 0, scale: 0.85, translateY: 20 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 120 }}
+          style={styles.card}
+        >
+          <Text style={styles.text}>Framer Motion Exit on React Native!</Text>
+        </NativeMotion.View>
+      )}
+    </AnimatedExit>
+  );
+}
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 20,
+    backgroundColor: '#6366f1',
+    borderRadius: 16,
+    alignItems: 'center',
+  },
+  text: {
+    color: '#ffffff',
+    fontWeight: '600',
+  },
+});
+```
+
+## Comparison with other solutions
+- **vs Raw Reanimated**: Raw Reanimated requires verbose hooks (`useSharedValue`, `withSpring`, `useAnimatedStyle`). `motion-on-native` replaces 30+ lines of imperative setup with simple declarative JSX props.
+- **vs Moti**: `motion-on-native` provides a direct port of Framer Motion's `AnimatedExit` (`AnimatePresence`) and `usePresence` hook with nested exit propagation, matching the Framer Motion API developers already know from web development.
+
+## Documentation Index
+- Getting Started: https://motion-on-native.vercel.app/docs/get-started/quick-start
+- Core Components: https://motion-on-native.vercel.app/docs/core/native-motion
+- AnimatedExit Guide: https://motion-on-native.vercel.app/docs/core/animated-exit
+- Exit Animations Deep-Dive Blog: https://motion-on-native.vercel.app/blog/exit-animations-react-native-framer-motion

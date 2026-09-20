@@ -1,3 +1,10 @@
+/**
+ * Adapted from Motion (formerly Framer Motion)
+ * Copyright (c) 2018 Framer B.V.
+ * Copyright (c) 2024 Motion B.V.
+ * Licensed under the MIT License. See THIRD-PARTY-NOTICES.md for full terms.
+ */
+
 import * as React from 'react';
 import { useContext, useMemo, useRef, useState } from 'react';
 import { useConstant } from './constants/useConstants';

@@ -1,3 +1,10 @@
+/**
+ * Adapted from Motion (formerly Framer Motion)
+ * Copyright (c) 2018 Framer B.V.
+ * Copyright (c) 2024 Motion B.V.
+ * Licensed under the MIT License. See THIRD-PARTY-NOTICES.md for full terms.
+ */
+
 import { useCallback, useContext, useEffect, useId } from 'react';
 import { PresenceContext } from '../contexts/PresenceContexts';
 import { PresenceContextProps } from '../types/types';

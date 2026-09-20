@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
-import { BookOpenText, Coffee, Github } from 'lucide-react';
+import { BookOpenText, Coffee, Github, Newspaper } from 'lucide-react';
 import { useResponsive } from '../hooks/useResponsive';
 export default function Topbar() {
   const isMobile = useResponsive();
@@ -20,13 +20,13 @@ export default function Topbar() {
       <motion.nav
         initial={{
           y: -100,
-          width: isMobile ? '100%' : '50%',
+          width: isMobile ? '100%' : '55%',
           borderRadius: 'calc(infinity * 1px)',
           marginTop: 5,
         }}
         animate={{
           y: 0,
-          width: isMobile ? '100%' : isHome ? '50%' : '100%',
+          width: isMobile ? '100%' : isHome ? '55%' : '100%',
           borderRadius: isMobile ? 0 : isHome ? 'calc(infinity * 1px)' : 0,
           marginTop: isMobile ? 0 : isHome ? 10 : 0,
           borderWidth: isHome ? '2px 2px' : '0px 0px 2px 0px',
@@ -35,15 +35,15 @@ export default function Topbar() {
       >
         <button
           onClick={() => redirectToPath('/')}
-          className={`flex  md:justify-start justify-center items-center gap-2  px-2  rounded-full     text-xl cursor-pointer group  w-full md:w-1/2`}
+          className={`flex md:justify-start justify-center items-center gap-2 px-2 rounded-full text-xl cursor-pointer group w-full md:w-auto`}
         >
           <Logo className="-mb-0.5 size-9 group-active:scale-95 group-hover:scale-[110%] transition-all duration-300 ease-in-out text-accent-blue" />
-          <span className="ml-2 text-xl"> Motion On Native</span>
+          <span className="ml-2 text-xl font-medium">Motion On Native</span>
         </button>
 
         <AnimatePresence>
           {isHome ? (
-            <motion.button
+            <motion.div
               initial={{ opacity: 0, scale: 0.8, x: 120 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0, x: 120 }}
@@ -52,12 +52,23 @@ export default function Topbar() {
                 stiffness: 260,
                 damping: 30,
               }}
-              onClick={() => redirectToPath('/docs')}
-              className="flex justify-center items-center gap-2 bg-transparent hover:bg-white-200/80 px-4 py-1.5 rounded-full text-white-200 hover:text-black-800 text-xl active:scale-95 transition-all duration-300 ease-in-out cursor-pointer space-grotesk"
+              className="flex items-center gap-2"
             >
-              <BookOpenText className="-mb-0.5 size-5" />
-              <span>Docs</span>
-            </motion.button>
+              <button
+                onClick={() => redirectToPath('/blog')}
+                className="flex justify-center items-center gap-1.5 bg-transparent hover:bg-white-200/20 px-3.5 py-1.5 rounded-full text-white-200 text-base active:scale-95 transition-all duration-200 cursor-pointer space-grotesk"
+              >
+                <Newspaper className="-mb-0.5 size-4 text-indigo-400" />
+                <span>Blog</span>
+              </button>
+              <button
+                onClick={() => redirectToPath('/docs')}
+                className="flex justify-center items-center gap-1.5 bg-transparent hover:bg-white-200/80 px-4 py-1.5 rounded-full text-white-200 hover:text-black-800 text-base active:scale-95 transition-all duration-200 cursor-pointer space-grotesk"
+              >
+                <BookOpenText className="-mb-0.5 size-4" />
+                <span>Docs</span>
+              </button>
+            </motion.div>
           ) : (
             <motion.span
               initial={{ opacity: 0, scale: 0.8, x: 120 }}
@@ -69,18 +80,32 @@ export default function Topbar() {
                 damping: 30,
                 delay: 0.3,
               }}
-              className="flex justify-center md:justify-end gap-3 mt-1.5 md:mt-0 w-full md:w-1/2"
+              className="flex justify-center md:justify-end items-center gap-3 mt-1.5 md:mt-0 w-full md:w-auto"
             >
               <button
+                onClick={() => redirectToPath('/blog')}
+                className="flex justify-center items-center gap-1.5 bg-transparent hover:bg-white-200/10 px-3 py-1 rounded-full text-neutral-300 hover:text-white text-sm transition-all cursor-pointer"
+              >
+                <Newspaper className="size-4 text-indigo-400" />
+                <span>Blog</span>
+              </button>
+              <button
+                onClick={() => redirectToPath('/docs')}
+                className="flex justify-center items-center gap-1.5 bg-transparent hover:bg-white-200/10 px-3 py-1 rounded-full text-neutral-300 hover:text-white text-sm transition-all cursor-pointer"
+              >
+                <BookOpenText className="size-4" />
+                <span>Docs</span>
+              </button>
+              <button
                 onClick={() => redirectToPath('https://github.com/mohd-Bilal-exe/motion-on-native')}
-                className="flex justify-center items-center gap-1 bg-transparent hover:bg-black-800 px-4 rounded-full text-white-200/30 hover:text-white-100 text-lg transition-all ease-in-out cursor-pointer"
+                className="flex justify-center items-center gap-1 bg-transparent hover:bg-black-800 px-3 py-1 rounded-full text-white-200/40 hover:text-white-100 text-sm transition-all ease-in-out cursor-pointer"
               >
                 <Github className="size-4" />
                 <span>Github</span>
               </button>
               <button
                 onClick={() => redirectToPath('https://buymeacoffee.com/mohammad.bilal.exe')}
-                className="flex justify-center items-center gap-1 bg-transparent hover:bg-white-200 px-4 rounded-full text-md text-white-200/30 hover:text-black-850 transition-all ease-in-out cursor-pointer"
+                className="flex justify-center items-center gap-1 bg-transparent hover:bg-white-200 px-3 py-1 rounded-full text-sm text-white-200/40 hover:text-black-850 transition-all ease-in-out cursor-pointer"
               >
                 <Coffee className="size-4" />
                 <span>Buy me a coffee</span>
